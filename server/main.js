@@ -8,6 +8,7 @@ import  {renderRoutes}  from '../imports/startup/both/routes.jsx'
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
+import { doctorDB } from '../imports/collections/doctorDB.js';
 
  
 Meteor.startup(() => {
@@ -29,10 +30,10 @@ Meteor.startup(() => {
  
   });
  
-  // Meteor.publish('Jobs', function() {
-  //   console.log("Done Publishing...")
-  //   return Jobs.find({});
-  // });
+  Meteor.publish('doctor-userid', function(id) {
+    console.log("Done Publishing...")
+    return doctorDB.find({userID:id});
+  });
  
 
 });

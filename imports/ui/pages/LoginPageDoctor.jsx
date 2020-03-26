@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
  
-export default class LoginPageCandidate extends Component {
+export default class LoginPageDoctor extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -20,57 +20,20 @@ export default class LoginPageCandidate extends Component {
 
 
     // e.preventDefault();
-
-
-    const qs = require('query-string');
-    q = qs.parse(this.props.location.search).redirect
-
-
-    if (q==undefined){
-      gohr = '/c/start';
-      go = '/c/start';
-    } else {
-      go = q;
-      gohr = q;
-    }
-
  
-
     let email = document.getElementById('normal_login_username').value;
     let password = document.getElementById('normal_login_password').value;   
     
     console.log(email + "/" +password)
     Meteor.loginWithPassword(email, password, (err) => {
       if(err){
-        this.setState({
-          error: err.reason
-        });
+        alert(err)
       } else {
-
-        // Meteor.call('mail_newCandidate',12312,"random person","ajay.thakur@litmuspreviews.com",(err)=>{
-        //   if(!err){
  
-        //   }
-        // })
-
-
-      
-
-        Meteor.call('setUserID',email,Meteor.userId(),(err)=>{
-            if(!err){
-               
-            }
-        })
-       
-        if (Roles.userIsInRole(Meteor.userId(), 'candidate')){
-          this.props.history.push(go);
-        } else if(Roles.userIsInRole(Meteor.userId(), 'hrmanager')) {
-         
-              this.props.history.push(gohr);
+        if (Roles.userIsInRole(Meteor.userId(), 'doctor')){
+          this.props.history.push("/d/home");
         }else{
-          this.setState({
-           error : 'No Talent Account found. Please create one and try again.'           
-          });
+          alert("Invalid email or password")
         }
      
       }
@@ -82,6 +45,11 @@ export default class LoginPageCandidate extends Component {
   render(){
     const error = this.state.error;
 
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Login</title>
+    <meta name="description" content="Login to your StackRaft Talent/Company Account" />
+  </Helmet>
 
 
     return (
@@ -121,7 +89,7 @@ export default class LoginPageCandidate extends Component {
           type="password"
           placeholder="Password"
         />
-      </Form.Item>
+      </Form.Item> 
       <Form.Item>
         <Form.Item  name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
@@ -136,7 +104,7 @@ export default class LoginPageCandidate extends Component {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-         &nbsp;&nbsp;or <a href="">register now!</a>
+         &nbsp;&nbsp;or <a href="/signup">register now!</a>
       </Form.Item>
     </Form>
               {/* <center>

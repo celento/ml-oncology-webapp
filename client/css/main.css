@@ -16540,6 +16540,7 @@ textarea.ant-input-affix-wrapper {
 .ant-input-affix-wrapper > input.ant-input {
   padding: 0;
   border: none;
+  padding-left: 10px;
   outline: none;
 }
 .ant-input-affix-wrapper > input.ant-input:focus {
