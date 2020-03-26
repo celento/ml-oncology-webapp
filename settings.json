@@ -1,5 +1,6 @@
+// Redacted AWSAccessKeyId and AWSSecretAccessKey for security reasons 
 {
-    "AWSAccessKeyId": "AKIAJZ2UVONKUO3ZRYBQ",
-    "AWSSecretAccessKey": "uhH2m7wuHL0n9NFiiJP1lAKV6N/bFL8a9998kbK6",
+    "AWSAccessKeyId": "xxx",
+    "AWSSecretAccessKey": "xxx",
     "AWSRegion": "us-west-2" 
-  }
+}
