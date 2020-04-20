@@ -9,16 +9,16 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import Rodal from 'rodal';
-import { Descriptions, Spin,PageHeader,Input, Button,Popconfirm,message} from 'antd';
+import { Descriptions, Spin,PageHeader,Timeline,Input,Tabs, Button,Popconfirm,message,Modal} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { patientDB } from '../../collections/patientDB';
 // import AshaContainer from '../containers/AshaContainer';
 // import AshaUserCard from './components/AshaUserCard';
-import { AuditOutlined,CarryOutOutlined,UserSwitchOutlined } from '@ant-design/icons';
+import { AuditOutlined,CarryOutOutlined,UserSwitchOutlined,PaperClipOutlined} from '@ant-design/icons';
 import { ansDB } from '../../collections/ansDB';
 import { appointmentsDB } from '../../collections/appointmentsDB';
 
-
+const { TabPane } = Tabs;
 const { TextArea } = Input;
 const override = css`
     display: block;
@@ -35,6 +35,7 @@ class PatientsDetail extends TrackerReact(React.Component){
     this.state = { 
       iconLoading: false, 
       additionalInfo:"",
+      visible:false,
    };
  
 
@@ -73,6 +74,27 @@ handleChange(e){
     additionalInfo:e.target.value,
   })
 }
+
+showModal = () => {
+  this.setState({
+    visible: true,
+  });
+};
+
+handleOk = e => {
+  console.log(e);
+  this.setState({
+    visible: false,
+  });
+};
+
+handleCancel = e => {
+  console.log(e);
+  this.setState({
+    visible: false,
+  });
+};
+
   
 render(){  
 
@@ -105,9 +127,11 @@ render(){
     <Descriptions.Item label="Gender">{this.props.patient.initialInfo.gender}</Descriptions.Item>
   </Descriptions> 
 
+    <p><b>Notes: </b>{this.props.patient.notes}</p>
 
+  
 
-  <Tabs defaultActiveKey="2">
+  <Tabs defaultActiveKey="1">
     <TabPane
       tab={
         <span>
@@ -117,6 +141,12 @@ render(){
       }
       key="1"
     >
+       <Button onClick={this.showModal} type="danger" size="large">
+          Refer for a Test
+        </Button>
+
+    <br/>
+    <br/>
      No Tests Yet
     </TabPane>
     <TabPane
@@ -130,14 +160,62 @@ render(){
     >
       Tab 2
     </TabPane>
+
+    <TabPane
+      tab={
+        <span>
+       <PaperClipOutlined />
+          Reference Notes
+        </span>
+      }
+      key="3"
+    >
+       <h2>Add a Note</h2>
+      <TextArea rows={8} onChange={this.handleChange} />
+
+      <br/>
+      <br/>
+      <br/>
+
+      <h2>Past Notes</h2>
+
+      <br/>
+      <Timeline>
+          <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+          <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
+          <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
+          <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+      </Timeline>
+
+
+
+    </TabPane>
+
+  </Tabs>
+
+  <br/>
+
+
+
+  <Tabs defaultActiveKey="1">
+    <TabPane
+      tab={
+        <span>
+          <CarryOutOutlined />
+          Results
+        </span>
+      }
+      key="1"
+    >
+     Nothing to Show
+    </TabPane>
+    
   </Tabs>
 
 
 <br/>
 <br/>
-  <h2>Additional Notes</h2>
-  <TextArea rows={4} onChange={this.handleChange} />
-
+ 
 
 <br/>
 <br/>
@@ -157,6 +235,22 @@ render(){
         </Button>
       </Popconfirm>
     
+
+
+      <Modal
+          title="Choose a Test"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
+
+
+
+
     </div>
   )
 

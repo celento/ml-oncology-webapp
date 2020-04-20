@@ -9661,6 +9661,7 @@ textarea.ant-picker-input > input {
 }
 .ant-tabs-nav {
   position: relative;
+  outline: none;
   display: inline-block;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -9700,6 +9701,7 @@ textarea.ant-picker-input > input {
   position: absolute;
   top: -1px;
   left: 0;
+  
   width: 100%;
   border-top: 2px solid transparent;
   border-radius: 2px 2px 0 0;
@@ -9716,6 +9718,7 @@ textarea.ant-picker-input > input {
 }
 .ant-tabs-nav .ant-tabs-tab:active {
   color: #388ed3;
+  outline: none;
 }
 .ant-tabs-nav .ant-tabs-tab .anticon {
   margin-right: 8px;
@@ -9780,6 +9783,7 @@ textarea.ant-picker-input > input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  outline: none;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
