@@ -4446,7 +4446,7 @@ html {
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
 .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-  background-color: #177ddc;
+  background-color: #F44336;
 }
 .ant-menu-dark .ant-menu-item-disabled,
 .ant-menu-dark .ant-menu-submenu-disabled,
@@ -4973,6 +4973,8 @@ html {
   font-weight: 400;
   white-space: nowrap;
   text-align: center;
+  border-radius: 9px !important;
+  margin-right: 20px;
   background-image: none;
   border: 1px solid transparent;
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
@@ -5044,9 +5046,9 @@ html {
 }
 .ant-btn:hover,
 .ant-btn:focus {
-  color: #165996;
+  color: #f44336;
   background-color: transparent;
-  border-color: #165996;
+  border-color: #f44336;
 }
 .ant-btn:hover > a:only-child,
 .ant-btn:focus > a:only-child {
@@ -5163,8 +5165,9 @@ html {
 }
 .ant-btn-primary {
   color: #fff;
-  background-color: #177ddc;
-  border-color: #177ddc;
+  border-radius: 9px;
+  border: none;
+  background-color: #F44336;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
           box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
@@ -5184,8 +5187,11 @@ html {
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {
   color: #fff;
-  background-color: #095cb5;
-  border-color: #095cb5;
+  background-color: #F44336;
+  border:none;
+  opacity: 0.8;
+  /* background-color: #095cb5;
+  border-color: #095cb5; */
 }
 .ant-btn-primary:hover > a:only-child,
 .ant-btn-primary:focus > a:only-child {
@@ -16444,7 +16450,7 @@ textarea.ant-picker-input > input {
   background-color: transparent;
   background-image: none;
   border: 1px solid #434343;
-  border-radius: 2px;
+  border-radius: 9px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   display: -webkit-inline-box;
@@ -21826,7 +21832,8 @@ textarea.ant-mentions {
   -webkit-font-feature-settings: tnum;
           font-feature-settings: tnum;
   position: relative;
-  padding: 16px 24px;
+  /* padding: 16px 24px; */
+  margin-bottom: 20px;
   background-color: #141414;
 }
 .ant-page-header-rtl {

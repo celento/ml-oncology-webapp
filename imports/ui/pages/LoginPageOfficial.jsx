@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
  
-export default class LoginPageDoctor extends Component {
+export default class LoginPageOfficial extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -53,7 +53,7 @@ export default class LoginPageDoctor extends Component {
 
 
     return (
-      <div className="vh-bg-lg">
+      <div className="vh-bg">
  
             <div className="login-box">
             <center>
@@ -101,7 +101,7 @@ export default class LoginPageDoctor extends Component {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button size="large" type="primary" htmlType="submit" className="login-form-button full-width-button">
           Log in
         </Button>
          &nbsp;&nbsp;or <a href="/signup">register now!</a>

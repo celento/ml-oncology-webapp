@@ -181,7 +181,7 @@ class SignupPageDoctor extends Component {
 
      
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button  size="large" type="primary" htmlType="submit" className="login-form-button full-width-button">
           Sign Up
         </Button>
          &nbsp;&nbsp;or <a href="/login">Already have an account?</a>

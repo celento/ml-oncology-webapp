@@ -1,4 +1,6 @@
 import { doctorDB } from "../imports/collections/doctorDB";
+import { appointmentsDB } from "../imports/collections/appointmentsDB";
+import { patientDB } from "../imports/collections/patientDB";
 
  
 
@@ -32,6 +34,7 @@ Meteor.methods({
                         isType : type,
                         status:"new", 
                         name:name,
+                        hospitalID:"1234",
                         hospital:hospital,
                         license:license,
                         timestamp:Date.now(),
@@ -64,6 +67,28 @@ Meteor.methods({
 
     },
 
+     
+    discardAppointment(id){
+
+        appointmentsDB.remove(
+              {_id:id,})
+
+    },
+
+    addToPatientsDB(userInfo,notes){
+        
+        patientDB.insert({
+            appointmentID:userInfo._id,
+            name:userInfo.name,
+            initialInfo:userInfo,
+            notes:notes,
+        })
+
+    },
+
+
+
+    
  
 
 

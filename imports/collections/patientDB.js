@@ -1,4 +1,4 @@
 import {Mongo} from 'meteor/mongo';
 
-export const SRPayments = new Mongo.Collection('SRPayments');
+export const patientDB = new Mongo.Collection('patientDB');
  

@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
  
 
   
-import LoginPageDoctor from '../../ui/pages/LoginPageDoctor.jsx';
+ 
 import SignupPageDoctor from '../../ui/pages/SignupPageDoctor.jsx';
+import LoginPageOfficial from '../../ui/pages/LoginPageOfficial.jsx';
  
  
 
@@ -16,7 +17,7 @@ export const renderRoutes = () => (
     <Switch>
  
        
-        <Route exact path="/login" component={LoginPageDoctor}/>        
+        <Route exact path="/login" component={LoginPageOfficial}/>        
       
 
         {/* <Route exact path="/" component={LoginPageDoctor}/>   */}
