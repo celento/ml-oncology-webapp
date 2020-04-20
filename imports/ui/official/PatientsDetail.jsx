@@ -14,7 +14,7 @@ import Highlighter from 'react-highlight-words';
 import { patientDB } from '../../collections/patientDB';
 // import AshaContainer from '../containers/AshaContainer';
 // import AshaUserCard from './components/AshaUserCard';
-import { AuditOutlined,SearchOutlined } from '@ant-design/icons';
+import { AuditOutlined,CarryOutOutlined,UserSwitchOutlined } from '@ant-design/icons';
 import { ansDB } from '../../collections/ansDB';
 import { appointmentsDB } from '../../collections/appointmentsDB';
 
@@ -103,8 +103,36 @@ render(){
     <Descriptions.Item label="Phone">{this.props.patient.initialInfo.phone}</Descriptions.Item>
     <Descriptions.Item label="Age">{this.props.patient.initialInfo.age}</Descriptions.Item>
     <Descriptions.Item label="Gender">{this.props.patient.initialInfo.gender}</Descriptions.Item>
- 
   </Descriptions> 
+
+
+
+  <Tabs defaultActiveKey="2">
+    <TabPane
+      tab={
+        <span>
+          <CarryOutOutlined />
+          Tests
+        </span>
+      }
+      key="1"
+    >
+     No Tests Yet
+    </TabPane>
+    <TabPane
+      tab={
+        <span>
+         <UserSwitchOutlined />
+          Patient Response
+        </span>
+      }
+      key="2"
+    >
+      Tab 2
+    </TabPane>
+  </Tabs>
+
+
 <br/>
 <br/>
   <h2>Additional Notes</h2>
