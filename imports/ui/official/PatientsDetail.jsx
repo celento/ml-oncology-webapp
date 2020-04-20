@@ -88,7 +88,7 @@ render(){
 <PageHeader
     className="site-page-header"
     onBack={() =>window.history.back()}
-    title="Appointment"
+    title="Patients"
     // subTitle="This is a subtitle"
   />
 
@@ -100,9 +100,9 @@ render(){
  
       <Descriptions title="User Info">
     <Descriptions.Item label="Name">{this.props.patient.name}</Descriptions.Item>
-    <Descriptions.Item label="Phone">{this.props.patient.userInfo.phone}</Descriptions.Item>
-    <Descriptions.Item label="Age">{this.props.patient.userInfo.age}</Descriptions.Item>
-    <Descriptions.Item label="Gender">{this.props.patient.userInfo.gender}</Descriptions.Item>
+    <Descriptions.Item label="Phone">{this.props.patient.initialInfo.phone}</Descriptions.Item>
+    <Descriptions.Item label="Age">{this.props.patient.initialInfo.age}</Descriptions.Item>
+    <Descriptions.Item label="Gender">{this.props.patient.initialInfo.gender}</Descriptions.Item>
  
   </Descriptions> 
 <br/>
@@ -137,9 +137,9 @@ render(){
 
 export default createContainer((props)=>{
  
-  console.log(props.match.params.cid)
-  Meteor.subscribe('patients-single',props.match.params.cid);
+  console.log(props.match.params.pid)
+  Meteor.subscribe('patients-single',props.match.params.pid);
     return{ 
-      patient:patientDB.findOne({_id:props.match.params.cid}),
+      patient:patientDB.findOne({_id:props.match.params.pid}),
   };
 }, PatientsDetail);  

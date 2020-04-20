@@ -66,7 +66,7 @@ render(){
       <h1>Patients</h1>
 
       <div className="appointments-holder">
-      {this.props.appointments.map(patient=><PatientCard patient={patient.initialInfo} key={patient._id}/>)}
+      {this.props.appointments.map(patient=><PatientCard patient={patient.initialInfo} pid={patient._id} key={patient._id}/>)}
       </div>
 
     </div>

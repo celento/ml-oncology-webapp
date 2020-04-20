@@ -69,7 +69,7 @@ class PatientCard extends TrackerReact(React.Component){
 
 
   navigate(){
-    this.props.history.push('/d/appointment/'+this.props.patient._id);
+    this.props.history.push('/d/patient/'+this.props.pid);
   }
 
 
@@ -136,5 +136,4 @@ render(){
 
  };
 }
-
 export default withRouter(PatientCard);  

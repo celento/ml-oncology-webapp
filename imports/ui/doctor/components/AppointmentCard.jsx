@@ -15,7 +15,6 @@ import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/ico
 const { Meta } = Card;
 
 
-const { TextArea } = Input;
 const override = css`
     display: block;
     margin: 0 auto;
