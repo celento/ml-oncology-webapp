@@ -19,6 +19,8 @@ import OfficialNotifications from '../../ui/official/OfficialNotifications.jsx';
 import OfficialStats from '../../ui/official/OfficialStats.jsx';
 import PatHome from '../../ui/patient/PatHome.jsx';
 import AppointmentDetail from '../../ui/official/AppointmentDetail.jsx';
+import PatientsHome from '../../ui/official/PatientsHome.jsx';
+import PatientsDetail from '../../ui/official/PatientsDetail.jsx';
 
 export const renderRoutes = () => (
   <Router >
@@ -50,7 +52,8 @@ export const renderRoutes = () => (
         <Route path="/d/">
             <OfficialContainer>
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/home" component={OfficialHome}/>
-              
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/patients" component={PatientsHome}/>
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/patient/:pid" component={PatientsDetail}/> 
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/appointment/:aid" component={AppointmentDetail}/> 
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/notifications" component={OfficialNotifications}/>
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/stats" component={OfficialStats}/>

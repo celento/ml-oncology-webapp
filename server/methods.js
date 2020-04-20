@@ -80,6 +80,7 @@ Meteor.methods({
         patientDB.insert({
             appointmentID:userInfo._id,
             name:userInfo.name,
+            hospitalID:userInfo.hospitalID,
             initialInfo:userInfo,
             notes:notes,
         })

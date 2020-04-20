@@ -10,6 +10,7 @@ import { StaticRouter } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import { appointmentsDB } from '../imports/collections/appointmentsDB';
 import { doctorDB } from '../imports/collections/doctorDB.js';
+import { patientDB } from '../imports/collections/patientDB.js';
 
  
 Meteor.startup(() => {
@@ -34,9 +35,17 @@ Meteor.startup(() => {
     return appointmentsDB.find({hospitalID:Number(hid)});
   });
  
+  Meteor.publish('patients-list', function(hid) {
+    return patientDB.find({hospitalID:Number(hid)});
+  });
+ 
 
   Meteor.publish('appointment-single', function(id) {
     return appointmentsDB.find({_id:id});
+  });
+
+  Meteor.publish('patients-single', function(id) {
+    return patientDB.find({_id:id});
   });
 
 
