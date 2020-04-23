@@ -9,7 +9,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import Rodal from 'rodal';
-import { Descriptions, Spin,PageHeader,Timeline,Input,Tabs, Button,Popconfirm,message,Modal} from 'antd';
+import { Descriptions, Spin,PageHeader,Timeline,Input,Tabs, Button,Popconfirm,message,Modal,DatePicker} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { patientDB } from '../../collections/patientDB';
 // import AshaContainer from '../containers/AshaContainer';
@@ -18,6 +18,7 @@ import { AuditOutlined,CarryOutOutlined,UserSwitchOutlined,PaperClipOutlined} fr
 import { ansDB } from '../../collections/ansDB';
 import { appointmentsDB } from '../../collections/appointmentsDB';
 
+const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 const override = css`
@@ -36,6 +37,8 @@ class PatientsDetail extends TrackerReact(React.Component){
       iconLoading: false, 
       additionalInfo:"",
       visible:false,
+      appointmentTime:null,
+      appointmentTS:null,
    };
  
 
@@ -43,6 +46,7 @@ class PatientsDetail extends TrackerReact(React.Component){
    this.discard= this.discard.bind(this);
 
    this.handleChange=this.handleChange.bind(this);
+   this.onChangeDate=this.onChangeDate.bind(this);
 
   }
 
@@ -69,31 +73,61 @@ class PatientsDetail extends TrackerReact(React.Component){
     })
   }
 
+// Additional Notes
 handleChange(e){
   this.setState({
     additionalInfo:e.target.value,
   })
 }
 
+// Test 
 showModal = () => {
   this.setState({
     visible: true,
   });
 };
 
+// Modal OK
 handleOk = e => {
-  console.log(e);
+
+  if(this.state.appointmentTime!=null){
+  
+  var notes = this.state.additionalInfo;
+  var test = "Brain Cancer";
+  Meteor.call('newTest',Meteor.user().profile.hospitalID,this.match.params.pid,this.state.appointmentTime,this.state.appointmentTS,test,this.props.patient.name,this.props.patient.gender,this.props.patient.age,notes,()=>{
+    if(!err){
+      message.success("Test Appointment Booked")
+    }
+  })
+
+  this.setState({
+    visible: false,
+  });
+}else{
+  message.error("Please choose a valid time")
+}
+};
+
+handleCancel = e => {
+ 
   this.setState({
     visible: false,
   });
 };
 
-handleCancel = e => {
-  console.log(e);
+onChangeDate(value, dateString) {
+  var ts = new Date(dateString).getTime();
+
+  if(Date.now()>ts){
+    message.error("Invalid Date/Time. Can't go back in Time. LOL!")
+  }else{
+
   this.setState({
-    visible: false,
-  });
-};
+    appointmentTime:dateString,
+    appointmentTS:ts,
+  })
+}
+}
 
   
 render(){  
@@ -102,6 +136,12 @@ render(){
     return(<div><Spin size="large" /></div>)
   }
 
+
+ 
+  
+  function onOk(value) {
+    console.log('onOk: ', value);
+  }
  
 
   return(
@@ -238,14 +278,31 @@ render(){
 
 
       <Modal
-          title="Choose a Test"
+          title="Refer for a Test"
           visible={this.state.visible}
           onOk={this.handleOk}
+          okText="Confirm"
           onCancel={this.handleCancel}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+
+          
+          <p>{this.props.patient.name}  |  {this.props.patient.initialInfo.gender}  |   {this.props.patient.initialInfo.age} </p>
+           
+           <p><b>Test :</b> Brain Cancer</p>
+
+
+           <p> <b>Appointment Date & Time </b></p>
+          <DatePicker showTime={{ format: 'HH:mm' }} onChange={this.onChangeDate} onOk={onOk} />
+          <br />
+          <br />
+         
+          <p> <b>Additional Notes</b></p>
+      <TextArea rows={8} onChange={this.handleChange} />
+          
+
+
+           
+     
         </Modal>
 
 

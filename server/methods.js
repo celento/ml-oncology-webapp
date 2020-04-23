@@ -1,6 +1,7 @@
 import { doctorDB } from "../imports/collections/doctorDB";
 import { appointmentsDB } from "../imports/collections/appointmentsDB";
 import { patientDB } from "../imports/collections/patientDB";
+import { testDB } from "../imports/collections/testDB";
 
  
 
@@ -82,6 +83,25 @@ Meteor.methods({
             name:userInfo.name,
             hospitalID:userInfo.hospitalID,
             initialInfo:userInfo,
+            notes:notes,
+        })
+
+    },
+
+
+
+    newTest(hid,pid,date,ts,test,name,gender,age,notes){
+        
+        testDB.insert({
+            appointmentID:userInfo._id,
+            name:name,
+            age:age,
+            date:date,
+            ts:ts,
+            test:test,
+            gender:gender,
+            hospitalID:hid,
+            patientID:pid,
             notes:notes,
         })
 

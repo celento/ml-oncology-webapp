@@ -54,16 +54,16 @@ class OfficialContainer extends TrackerReact(React.Component) {
     }
 
     goN1(){
-        this.props.history.push('/official/home');
+        this.props.history.push('/d/home');
     }
     goN2(){
-        this.props.history.push('/official/feed');
+        this.props.history.push('/d/patients');
     }
     goN3(){
-        this.props.history.push('/official/notifications');
+        this.props.history.push('/d/tests');
     }
     goN4(){
-        this.props.history.push('/official/stats');
+        this.props.history.push('/d/results');
     }
 
     getMeteorData(){
@@ -159,21 +159,21 @@ class OfficialContainer extends TrackerReact(React.Component) {
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item onClick={this.goN1} key="1">
               <PieChartOutlined />
-              <span>All Records</span>
+              <span>Home</span>
             </Menu.Item>
             <Menu.Item onClick={this.goN2}  key="2">
               <RadarChartOutlined />
-              <span>Live Feed</span>
+              <span>Patients</span>
             </Menu.Item>
 
             <Menu.Item onClick={this.goN3}  key="3">
               <MessageOutlined/>
-              <span>Notifications</span>
+              <span>Tests</span>
             </Menu.Item>
 
             <Menu.Item onClick={this.goN4}  key="4">
               <RobotOutlined />
-              <span>Stats</span>
+              <span>Results</span>
             </Menu.Item>
 
           </Menu>

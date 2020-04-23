@@ -11,6 +11,8 @@ import {Helmet} from 'react-helmet';
 import { appointmentsDB } from '../imports/collections/appointmentsDB';
 import { doctorDB } from '../imports/collections/doctorDB.js';
 import { patientDB } from '../imports/collections/patientDB.js';
+import { testDB } from '../imports/collections/testDB.js';
+
 
  
 Meteor.startup(() => {
@@ -52,7 +54,10 @@ Meteor.startup(() => {
   Meteor.publish('doctor-userid', function(id) {
     return doctorDB.find({userID:id});
   });
-
+ 
+  Meteor.publish('test-all', function(hid) {
+    return testDB.find({hospitalID:Number(hid)});
+  });
  
 
  
