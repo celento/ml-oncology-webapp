@@ -9,12 +9,12 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import Rodal from 'rodal';
-import { Descriptions, Spin,PageHeader,Timeline,Input,Tabs, Button,Popconfirm,message,Modal,DatePicker,Card} from 'antd';
+import { Descriptions, Spin,PageHeader,Progress,Input,Tabs, Button,Popconfirm,message,Modal,DatePicker,Upload} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { patientDB } from '../../collections/patientDB';
 // import AshaContainer from '../containers/AshaContainer';
 // import AshaUserCard from './components/AshaUserCard';
-import { AuditOutlined,CarryOutOutlined,UserSwitchOutlined,PaperClipOutlined} from '@ant-design/icons';
+import { InboxOutlined,AuditOutlined,CarryOutOutlined,UserSwitchOutlined,PaperClipOutlined} from '@ant-design/icons';
 import { ansDB } from '../../collections/ansDB';
 import { appointmentsDB } from '../../collections/appointmentsDB';
 import { testDB } from '../../collections/testDB';
@@ -29,21 +29,13 @@ const override = css`
 `;
 
 
-const tabList = [
-  {
-    key: 'tab1',
-    tab: 'tab1',
-  },
-  {
-    key: 'tab2',
-    tab: 'tab2',
-  },
-];
+
+const { Dragger } = Upload;
 
 
 
 
-class PatientsDetail extends TrackerReact(React.Component){
+class BrainCancer extends TrackerReact(React.Component){
 
   constructor(props) {
     super(props);
@@ -53,6 +45,12 @@ class PatientsDetail extends TrackerReact(React.Component){
       visible:false,
       appointmentTime:null,
       appointmentTS:null,
+      uploadLink:null,
+      progressView:"upload-progress-hide",
+      progress:0,
+      btnStatus:"disabled",
+      btnClass :"btn_test_class_dis",
+
    };
  
 
@@ -62,6 +60,59 @@ class PatientsDetail extends TrackerReact(React.Component){
    this.handleChange=this.handleChange.bind(this);
    this.onChangeDate=this.onChangeDate.bind(this);
 
+   this.upload = this.upload.bind(this);
+  }
+
+
+  upload(info){
+    var progress =0;
+    console.log(info)
+    var metaContext = {userID : Meteor.userId(), ts_date:Date.now()};
+
+    // showing the uploader
+
+    this.setState({progressView:"upload-progress-show"})
+
+    typeof(info.file)
+    console.log(info.fileList[0].originFileObj)
+
+    var uploader = new Slingshot.Upload("CancerImage", metaContext);
+    uploader.send(info.fileList[0].originFileObj, function (error, downloadUrl) { 
+      // you can use refs if you like
+      if (error) {
+        // Log service detailed response
+        console.error('Error uploading. Please check your internet connection/try again later');
+        alert (error); // you may want to fancy this up when you're ready instead of a popup.
+      }
+      else {
+        this.setState({uploadLink: downloadUrl});
+        console.log(downloadUrl)
+        // we use $set because the user can change their avatar so it overwrites the url :)
+          //Adding the Upload to the Database
+    
+      }
+      // you will need this in the event the user hit the update button because it will remove the avatar url
+    }.bind(this));
+    var computation = Tracker.autorun(function () {
+      var exact_progress = progress * uploader.progress();
+ 
+      if(uploader.progress()){
+        console.log("Progress : " + uploader.progress()*100)
+
+        this.setState({
+          progress:Math.ceil(uploader.progress()*100),
+          btnClass :"btn_test_class_dis"
+        })
+      }
+      if(uploader.progress()==1){
+        this.setState({
+          btnClass :"btn_test_class",
+        })
+        console.log(this.state.uploadLink)
+      console.log("Done Uploading the file")
+  
+      }
+    }.bind(this));
   }
 
   enterIconLoading = () => {
@@ -150,7 +201,26 @@ render(){
     return(<div><Spin size="large" /></div>)
   }
 
-
+  const props = {
+    name: 'file',
+    multiple: true,
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  
+    onChange(info) {
+      const { status } = info.file;
+  
+     this.upload(info.file).bind(this);
+      console.log(status)
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
   var testData = null;
   
 
@@ -158,10 +228,7 @@ render(){
     testData = <p>No Test Data</p>
   }else{
     testData = <div>
-        {this.props.test.map(test=>(<div><Card type="inner" title={test.test}>
-        Appointment : {test.date}  <br/>
-        Status : {test.status} <br/>
-    </Card> <br/></div>))}
+        
     </div>
   }
  
@@ -177,7 +244,7 @@ render(){
 <PageHeader
     className="site-page-header"
     onBack={() =>window.history.back()}
-    title="Patients"
+    title="Brain Cancer Testing"
     // subTitle="This is a subtitle"
   />
 
@@ -196,147 +263,45 @@ render(){
 
     <p><b>Notes: </b>{this.props.patient.notes}</p>
 
-  
-
-  <Tabs defaultActiveKey="1">
-    <TabPane
-      tab={
-        <span>
-          <CarryOutOutlined />
-          Tests
-        </span>
-      }
-      key="1"
-    >
-       <Button onClick={this.showModal} type="danger" size="large">
-          Refer for a Test
-        </Button>
-
-    <br/>
-    <br/>
-{testData}
+<br/><br/>
  
 
-
-    </TabPane>
-    <TabPane
-      tab={
-        <span>
-         <UserSwitchOutlined />
-          Patient Response
-        </span>
-      }
-      key="2"
-    >
-      Tab 2
-    </TabPane>
-
-    <TabPane
-      tab={
-        <span>
-       <PaperClipOutlined />
-          Reference Notes
-        </span>
-      }
-      key="3"
-    >
-       <h2>Add a Note</h2>
-      <TextArea rows={8} onChange={this.handleChange} />
-      <br/>
-      <br/>
-      <br/>
-
-      <h2>Past Notes</h2>
-
-      <br/>
-      <Timeline>
-          <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-          <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-          <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-          <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
-      </Timeline>
-
-
-
-    </TabPane>
-
-  </Tabs>
-
-  <br/>
-
-
-
-  <Tabs defaultActiveKey="1">
-    <TabPane
-      tab={
-        <span>
-          <CarryOutOutlined />
-          Results
-        </span>
-      }
-      key="1"
-    >
-     Nothing to Show
-    </TabPane>
-    
-  </Tabs>
-
+<h3>Upload MRI Scan</h3>
+<p> The image has to be in .jpg or .jpeg file format and has to be less than 20MB in size</p>
+<br/>
+    <Dragger accept=".jpg,.jpeg" onChange={this.upload}>
+    <p className="ant-upload-drag-icon">
+      <InboxOutlined />
+    </p>
+    <p className="ant-upload-text">Click or drag file to this area to upload</p>
+    <p className="ant-upload-hint">
+      Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+      band files
+    </p>
+  </Dragger>
 
 <br/>
-<br/>
- 
-
-<br/>
+<div className={this.state.progressView}>
+ <Progress size="large" percent={this.state.progress} size="small" />
+</div>
 <br/>
     <Button
           type="primary"
           size="large"
+          className={this.state.btnClass}
           icon={<AuditOutlined />}
           loading={this.state.iconLoading}
           onClick={this.enterIconLoading}
         >
-          Refer for Checkup
+         Run Test
     </Button>
 
-    <Popconfirm placement="topLeft" title="Are you sure to discard this record?" onConfirm={this.discard} okText="Yes" cancelText="No">
-    <Button type="default" size="large">
-          Discard Record
-        </Button>
-      </Popconfirm>
-    
-
-
-      <Modal
-          title="Refer for a Test"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          okText="Confirm"
-          onCancel={this.handleCancel}
-        >
-
-          
-          <p>{this.props.patient.name}  |  {this.props.patient.initialInfo.gender}  |   {this.props.patient.initialInfo.age} </p>
-           
-           <p><b>Test :</b> {this.props.patient.initialInfo.test}</p>
-
-
-           <p> <b>Appointment Date & Time </b></p>
-          <DatePicker showTime={{ format: 'HH:mm' }} onChange={this.onChangeDate} onOk={onOk} />
-          <br />
-          <br />
-         
-          <p> <b>Additional Notes</b></p>
-      <TextArea rows={8} onChange={this.handleChange} />
-          
-
-
-           
+    {/* <Popconfirm placement="topLeft" title="Are you sure to discard this record?" onConfirm={this.discard} okText="Yes" cancelText="No">
      
-        </Modal>
-
-
-
-
+      </Popconfirm>
+     */}
+ 
+ 
     </div>
   )
 
@@ -344,16 +309,14 @@ render(){
 }
 
 export default createContainer((props)=>{
- 
-  console.log(props.match.params.pid)
-
-  console.log(testDB.find({patientID:props.match.params.pid}).fetch())
-
+  
   Meteor.subscribe('patients-single',props.match.params.pid);
   Meteor.subscribe('test-single',props.match.params.pid);
+
+  console.log(patientDB.find({_id:props.match.params.pid}).fetch())
     return{ 
+      test:testDB.findOne({patientID:props.match.params.pid}),
       patient:patientDB.findOne({_id:props.match.params.pid}),
-      test:testDB.find({patientID:props.match.params.pid}).fetch(),
       
   };
-}, PatientsDetail);  
+}, BrainCancer);  

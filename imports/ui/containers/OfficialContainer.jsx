@@ -148,7 +148,12 @@ class OfficialContainer extends TrackerReact(React.Component) {
  
     <div>
         <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+        <Sider style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+      }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
           <div className="logo">
               <center>
               <img className="logo-navbar-off" src='/img/icon_m.png'/>
@@ -180,7 +185,7 @@ class OfficialContainer extends TrackerReact(React.Component) {
         </Sider>
         <Layout className="site-layout">
           
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '24px 30px 0px 230px', overflow: 'initial' }}>
              
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                {this.props.children}

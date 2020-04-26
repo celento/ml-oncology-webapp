@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "ant-design-pro": "^2.3.2",
     "antd": "^4.1.0",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.2",
@@ -13,6 +14,8 @@
     "mailgun-js": "^0.20.0",
     "markdown-it": "^10.0.0",
     "meteor-node-stubs": "~0.2.0",
+    "moment": "^2.24.0",
+    "numerical": "^0.2.4",
     "prerender": "^5.4.5",
     "prismjs": "^1.17.1",
     "prop-types": "^15.5.10",

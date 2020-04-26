@@ -91,16 +91,19 @@ Meteor.methods({
 
 
     newTest(hid,pid,date,ts,test,name,gender,age,notes){
-        
+        // status 
+        // 0 - booked
+        // 1 - taken
+        // 2 - result
         testDB.insert({
-            appointmentID:userInfo._id,
             name:name,
             age:age,
-            date:date,
+            date:date.substring(0, date.length - 3),
             ts:ts,
             test:test,
             gender:gender,
             hospitalID:hid,
+            status:0,
             patientID:pid,
             notes:notes,
         })

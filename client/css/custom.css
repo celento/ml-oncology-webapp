@@ -42,3 +42,47 @@
   margin-bottom:40px;
 
 }
+
+.upload-progress-hide{
+  display: none;
+}
+
+.upload-progress-show{
+  display: block;
+}
+
+.btn_test_class_dis{
+  cursor:not-allowed;
+  opacity:0.2;
+}
+
+.btn_test_class_dis:hover{
+  cursor:not-allowed;
+  opacity:0.2 !important;
+}
+.btn_test_class{
+  cursor:auto;
+  opacity:1.0;
+}
+
+.chart_card_split_l{
+  width:calc(450px);
+  height: 520px;
+  margin-right: 10px !important;
+  display: inline-block;
+}
+
+.chart_card_split_r{
+  height: 520px;
+  vertical-align: top;
+  width:calc(100% - 480px);
+  margin-left:10px !important;
+  display: inline-block;
+  margin-right: 0px !important;
+
+}
+
+.uploaded_img{
+  width:400px;
+  height: 400px;
+}

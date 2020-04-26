@@ -22,6 +22,8 @@ import AppointmentDetail from '../../ui/official/AppointmentDetail.jsx';
 import PatientsHome from '../../ui/official/PatientsHome.jsx';
 import PatientsDetail from '../../ui/official/PatientsDetail.jsx';
 import Tests from '../../ui/official/Tests.jsx';
+import BrainCancer from '../../ui/official/BrainCancer.jsx';
+import ResultBrain from '../../ui/official/ResultBrain.jsx';
 
 export const renderRoutes = () => (
   <Router >
@@ -56,6 +58,14 @@ export const renderRoutes = () => (
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/patients" component={PatientsHome}/>
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/patient/:pid" component={PatientsDetail}/> 
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/appointment/:aid" component={AppointmentDetail}/> 
+
+                {/* Tests */}
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/test/brain/:pid" component={BrainCancer}/> 
+
+                {/* Results */}
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/result/brain/:pid" component={ResultBrain}/> 
+
+
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/tests" component={Tests}/>
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/notifications" component={OfficialNotifications}/>
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/stats" component={OfficialStats}/>

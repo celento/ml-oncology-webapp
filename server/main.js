@@ -56,7 +56,11 @@ Meteor.startup(() => {
   });
  
   Meteor.publish('test-all', function(hid) {
-    return testDB.find({hospitalID:Number(hid)});
+    return testDB.find({hospitalID:hid});
+  });
+ 
+  Meteor.publish('test-single', function(pid) {
+    return testDB.find({patientID:pid});
   });
  
 
