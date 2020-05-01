@@ -15,6 +15,23 @@
   position: absolute;
 }
 
+
+.answer_container{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: fit-content;
+  /* border: 1px solid #eee; */
+  border-radius: 30px;
+  /* background-color: #171717; */
+  margin: auto;
+  padding: 30px;
+  /* box-shadow: 0px -2px 27px 5px rgba(50, 50, 93, 0.09), 1px 7px 16px -8px rgba(0, 0, 0, 0.2); */
+  position: absolute;
+}
  
 
 .login-logo{
@@ -27,6 +44,11 @@
 .full-width-button{
   width: 100%;
   margin-bottom: 20px;
+}
+
+.ans-bg{
+  height:100vh;
+  background-color: #202125;
 }
 
 .vh-bg{
@@ -85,4 +107,99 @@
 .uploaded_img{
   width:400px;
   height: 400px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Mobile App Code */
+
+.ans_logo{
+  height: 70px;
+  width: 70px;
+  margin-bottom: 30px;
+} 
+
+.ans_title{
+  font-size:34px;
+  font-weight: bold;
+}
+
+.ans_content{
+  font-size: 16px;
+}
+
+
+.answer_container{
+  /* position: absolute !important; */
+}
+
+.getStartedbtn{
+  margin-top: 20px;
+  width: 100%;
+  vertical-align: middle;
+  padding-top: 15px !important;
+  padding-bottom: 42px !important;
+  font-size: 18px !important;
+}
+
+.anim_hide_div{
+  transition: all 2s linear;
+  animation: slideout 1s;
+  animation-fill-mode: forwards;
+}
+
+
+.anim_div{
+  margin-top:0px;
+}
+
+.anim_show_div{
+  transition: all 2s linear;
+  animation: slidein 1s;
+  animation-fill-mode: forwards;
+}
+
+
+
+
+.hide_div{
+  display: none;
+}
+
+@keyframes slideout {
+   from { 
+     margin-top: initial;
+     opacity: 1.0;
+     display: block;
+  }
+   to {
+    margin-top: -500px;
+    opacity: 0;
+    display: none;
+    }
+}
+
+@keyframes slidein {
+  from { 
+    margin-top: 500px;
+    opacity: 0;
+    display: block;
+ }
+  to {
+   margin-top: 100px;
+   opacity: 1.0;
+   display: none;
+   }
+}
+
+.show_div{
+  display: block;
 }
