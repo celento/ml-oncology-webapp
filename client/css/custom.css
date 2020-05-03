@@ -48,7 +48,7 @@
 
 .ans-bg{
   height:100vh;
-  background-color: #202125;
+  background-color: #000;
 }
 
 .vh-bg{
@@ -157,19 +157,19 @@
 }
 
 
-.anim_div{
-  margin-top:0px;
+.animation_div {
+  transition: opacity 1.0s;
+  opacity: 1;
+ 
+  /* display: block; */
+}
+.animation_div.anim_hide {
+  opacity: 0 !important;
+  /* display: none; */
+  pointer-events:none;
 }
 
-.anim_show_div{
-  transition: all 2s linear;
-  animation: slidein 1s;
-  animation-fill-mode: forwards;
-}
-
-
-
-
+ 
 .hide_div{
   display: none;
 }
