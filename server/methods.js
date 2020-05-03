@@ -2,6 +2,7 @@ import { doctorDB } from "../imports/collections/doctorDB";
 import { appointmentsDB } from "../imports/collections/appointmentsDB";
 import { patientDB } from "../imports/collections/patientDB";
 import { testDB } from "../imports/collections/testDB";
+import { regPatient } from "../imports/collections/regPatient";
 
  
 
@@ -110,6 +111,14 @@ Meteor.methods({
 
     },
 
+
+    registerPatient(hash,name,age,gender,mobile){
+
+        regPatient.insert({name,hash,age,gender,mobile,
+        timestamp:Date.now()
+    })
+
+    },
 
 
     

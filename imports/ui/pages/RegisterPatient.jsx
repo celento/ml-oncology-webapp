@@ -34,6 +34,8 @@ class RegisterPatient extends Component {
     
     this.state = {
       error: '',
+      age:null,
+      gender:null,
       s1:"animation_div",
       s2:"animation_div anim_hide",
       s3:"animation_div anim_hide",
@@ -42,9 +44,7 @@ class RegisterPatient extends Component {
 
     };
  
-  
-    this.handleSubmit = this.handleSubmit.bind(this);
-
+   
 
     // Steps
     this.stepOne = this.stepOne.bind(this);
@@ -69,10 +69,10 @@ class RegisterPatient extends Component {
   }
 
 
-  openNotification = () => {
+  openNotification = (msg,desc) => {
     notification.open({
-      message: this.state.error_title,
-      description:this.state.error,
+      message: msg,
+      description:desc,
       icon: <ExclamationCircleOutlined style={{ color: 'red' }} />,
     });
   };
@@ -90,60 +90,88 @@ class RegisterPatient extends Component {
 // Name
   stepTwo(){
   
+    var name = document.getElementById('g_name').value;
+
+    if(name.trim()==""){
+      this.openNotification("Oops!","Enter your name to continue")
+    }else{
     // Data Store
     this.setState({
-      name: document.getElementById('g_name').value,
+      name: name,
     })
     // Animation 
     this.setState({
       s2:"animation_div anim_hide",
       s3:"animation_div"
     })
+   }
   }
 
 // Age + Gener
   stepThree(){
+    var age = this.state.age;
+    var gender = this.state.gender;
+    
+    if(age == null || gender == null){
+      this.openNotification("Oops!","Fill up both your age and gender")
+    }else{
     // Animation 
     this.setState({
       s3:"animation_div anim_hide",
       s4:"animation_div"
     })
+    }
   }
 
 
 // Mobile Number
   stepFour(){
-    this.setState({
-      mobile:document.getElementById('g_mobile').value,
-    })
+    var mobile = document.getElementById('g_mobile').value;
 
-      // Animation 
+    if(mobile.trim()==""){
+      this.openNotification("Oops!","Enter your mobile number")
+    }else{
+    this.setState({
+      mobile:mobile,
+    })
+      // Animation
       this.setState({
         s4:"animation_div anim_hide",
         s5:"animation_div"
       })
+    }
   }
 
   
 // Finish
   stepFive(){
-     // Animation 
-     this.setState({
-      s4:"animation_div anim_hide",
-      s5:"animation_div"
-    })
 
+    //  // Animation 
+    //  this.setState({
+    //   s4:"animation_div anim_hide",
+    //   s5:"animation_div"
+    // })
 
-
-    var userid = "";
+    var hash = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    
     for (var i = 0; i < 20; i++)
-    userid += possible.charAt(Math.floor(Math.random() * possible.length));
+    hash += possible.charAt(Math.floor(Math.random() * possible.length));
+    console.log(hash)
 
-    userno = userid;
-    console.log(userid)
+    var name = this.state.name;
+    var age = this.state.age;
+    var gender = this.state.gender;
+    var mobile = this.state.mobile;
 
+    Meteor.call('registerPatient',hash,name,age,gender,mobile,(err)=>{
+
+      if(err){
+        this.openNotification('Error!',"Something went wrong. Try again later")
+      }else{
+        console.log("Done");
+      }
+
+    })
 
   }
 
@@ -229,7 +257,7 @@ class RegisterPatient extends Component {
              <img src="/img/icon_m.png" className="ans_logo"/>
  
               <p className="ans_content">Gender & Age</p>
-              <Radio.Group size="large" onChange={this.onChangeGender} defaultValue="Male">
+              <Radio.Group size="large" onChange={this.onChangeGender}>
                 <Radio.Button value="Male">Male</Radio.Button>
                 <Radio.Button value="Female">Female</Radio.Button>
               </Radio.Group> &nbsp;&nbsp;
@@ -253,7 +281,7 @@ class RegisterPatient extends Component {
 
             <p className="ans_content">Mobile Number</p>
 
-            <Input id="g_mobile" size="large" placeholder="Enter you Mobile Number" prefix={<UserOutlined />} />
+            <Input type="number" id="g_mobile" size="large" placeholder="Enter you Mobile Number" prefix={<UserOutlined />} />
 
             <Button onClick={this.stepFour} className="getStartedbtn" type="primary">Next</Button>
             </center>
@@ -270,10 +298,10 @@ class RegisterPatient extends Component {
           <center>
           <img src="/img/icon_m.png" className="ans_logo"/>
 
-          <h1 className="ans_title"> <b>Finish</b></h1>
-           <p className="ans_content"> You have successfully created the</p>
+          <h1 className="ans_title"> <b>Done</b></h1>
+           <p className="ans_content"> You have successfully completed the registration.</p>
 
-           <Button onClick={this.stepOne} className="getStartedbtn" type="primary">Get Started</Button>
+           <Button onClick={this.stepFive} className="getStartedbtn" type="primary">Finish</Button>
           </center>
        
         </div>
