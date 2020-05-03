@@ -145,13 +145,7 @@ class RegisterPatient extends Component {
   
 // Finish
   stepFive(){
-
-    //  // Animation 
-    //  this.setState({
-    //   s4:"animation_div anim_hide",
-    //   s5:"animation_div"
-    // })
-
+ 
     var hash = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i < 20; i++)
