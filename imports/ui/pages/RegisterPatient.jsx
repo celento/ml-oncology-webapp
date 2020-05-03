@@ -44,25 +44,15 @@ class RegisterPatient extends Component {
 
     };
  
-   
-
     // Steps
     this.stepOne = this.stepOne.bind(this);
     this.stepTwo = this.stepTwo.bind(this);
     this.stepThree = this.stepThree.bind(this);
     this.stepFour = this.stepFour.bind(this);
     this.stepFive = this.stepFive.bind(this);
-  
-
-    
-
     this.openNotification = this.openNotification.bind(this);
-
     this.onChangeAge=this.onChangeAge.bind(this);
     this.onChangeGender=this.onChangeGender.bind(this);
-
-
-
   }
   componentDidMount(){
     
@@ -77,7 +67,7 @@ class RegisterPatient extends Component {
     });
   };
 
-// Welcome
+  // Welcome Screen
   stepOne(){
     // Animation 
     this.setState({
@@ -87,7 +77,7 @@ class RegisterPatient extends Component {
   
   }
 
-// Name
+  // Name
   stepTwo(){
   
     var name = document.getElementById('g_name').value;
@@ -107,7 +97,7 @@ class RegisterPatient extends Component {
    }
   }
 
-// Age + Gener
+  // Age + Gener
   stepThree(){
     var age = this.state.age;
     var gender = this.state.gender;
@@ -124,7 +114,7 @@ class RegisterPatient extends Component {
   }
 
 
-// Mobile Number
+  // Mobile Number
   stepFour(){
     var mobile = document.getElementById('g_mobile').value;
 
@@ -143,14 +133,13 @@ class RegisterPatient extends Component {
   }
 
   
-// Finish
+  // Finish 
   stepFive(){
  
     var hash = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i < 20; i++)
     hash += possible.charAt(Math.floor(Math.random() * possible.length));
-    // console.log(hash)
 
     var name = this.state.name;
     var age = this.state.age;
@@ -170,22 +159,19 @@ class RegisterPatient extends Component {
   }
 
 
-  onChangeGender(e) {
-    this.setState({
-      gender:e.target.value,
-    })
-    // console.log(`radio checked:${e.target.value}`);
-  }
-  onChangeAge(value) {
-    this.setState({
-      age:value,
-    })  
-    // console.log(`selected ${value}`);
-  }
- 
-   
- 
+    onChangeGender(e) {
+      this.setState({
+        gender:e.target.value,
+      })
+    }
 
+    onChangeAge(value) {
+      this.setState({
+        age:value,
+      })  
+    }
+  
+    
   render(){
 
     var ageGenerator = []
