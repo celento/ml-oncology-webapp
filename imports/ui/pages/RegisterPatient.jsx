@@ -156,7 +156,7 @@ class RegisterPatient extends Component {
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i < 20; i++)
     hash += possible.charAt(Math.floor(Math.random() * possible.length));
-    console.log(hash)
+    // console.log(hash)
 
     var name = this.state.name;
     var age = this.state.age;
@@ -180,13 +180,13 @@ class RegisterPatient extends Component {
     this.setState({
       gender:e.target.value,
     })
-    console.log(`radio checked:${e.target.value}`);
+    // console.log(`radio checked:${e.target.value}`);
   }
   onChangeAge(value) {
     this.setState({
       age:value,
     })  
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   }
  
    
