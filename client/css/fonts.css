@@ -1,0 +1,68 @@
+body::-webkit-scrollbar { width: 0 !important }
+.rodal-candidate::-webkit-scrollbar { width: 0 !important }
+@font-face {
+    font-family: 'CMainBold';
+    src: url('fonts/productsans-bold-webfont.woff2') format('woff2'),
+         url('fonts/productsans-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+ 
+
+
+@font-face {
+    font-family: 'CMainLight';
+    src: url('fonts/productsans-light-webfont.woff2') format('woff2'),
+         url('fonts/productsans-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+ 
+
+
+
+@font-face {
+    font-family: 'CMainMedium';
+    src: url('fonts/productsans-medium-webfont.woff2') format('woff2'),
+         url('fonts/productsans-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+ 
+@font-face {
+    font-family: 'CMainSemiBold';
+    src: url('fonts/productsans-medium-webfont.woff2') format('woff2'),
+         url('fonts/productsans-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'CMainRegular';
+    src: url('fonts/productsans-regular-webfont.woff2') format('woff2'),
+         url('fonts/productsans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'CMainThin';
+    src: url('fonts/productsans-thin-webfont.woff2') format('woff2'),
+         url('fonts/productsans-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+ 

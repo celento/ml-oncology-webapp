@@ -206,22 +206,36 @@
 
 .child-content-holder{
   height: calc(100vh - 60px);
+  padding:30px;
+  overflow-x: hidden;
+  padding-top: 90px;
+  overflow-y: scroll; 
+  
 }
 
 .mobile-navigation{
   height: 60px;
   background-color: #151414;
-  padding-top: 10px;
-  display: grid;
  
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* display: grid; */
+ 
+  
 
 }
 
 .mn-item{
   display: inline-block;
+  padding-top: 10px;
   width:calc(100%/4);
-  justify-self: center; 
+  height: 60px;
+
+  /* justify-self: center;  */
+}
+
+.mn_selected_item{
+  background-color: #F44336;
+  font-weight: bold;
+
 }
 
 .hm_icon{
@@ -232,7 +246,7 @@
   margin-bottom: 0px;
   color: #fff;
   font-size: 12px;
-  align-self: center;
+  /* align-self: center; */
   /* font-weight: bold; */
 }
 
@@ -240,5 +254,74 @@
   margin:0 auto;
   width:0px;
   display: block;
-  align-self: center;
+  /* align-self: center; */
+}
+
+.ma-title{
+  font-family: 'CMainBold';
+  color: #fff;
+  font-size:35px;
+}
+
+.today_date{
+  margin-bottom: 0px;
+}
+
+.mh_book_ap{
+  padding-top:30px;
+  font-family: 'CMainBold';
+  width:95%;
+  background-color: #F44336;
+  padding-bottom:10px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+.mh_book_ap:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.ma-sub-title{
+  font-family: 'CMainBold';
+  color: #fff;
+  font-size:20px;
+}
+
+.userimage{
+  width:40px;
+  height:40px;
+  margin-bottom: 20px;
+}
+
+.hp_pp_name{
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 0px;
+  font-family: 'CMainBold';
+}
+
+.hp_info_p{
+  margin-top:0px;
+}
+
+.hp_main_profile_holder{
+  padding:20px;
+  padding-top:30px;
+  border-radius: 20px;
+  background-color: rgb(22, 18, 18);
+}
+
+.edit_info{
+  background-color: black;
+  width:100px;
+  padding:3px 0px;
+  border-radius: 30px;
+}
+
+.edit_info:hover{
+  opacity: 0.8;
+  cursor: pointer;
 }

@@ -25,6 +25,9 @@ import Tests from '../../ui/official/Tests.jsx';
 import BrainCancer from '../../ui/official/BrainCancer.jsx';
 import ResultBrain from '../../ui/official/ResultBrain.jsx';
 import PatientContainer from '../../ui/containers/PatientContainer.jsx';
+import PatNotif from '../../ui/patient/PatNotif.jsx';
+import PatAccess from '../../ui/patient/PatAccess.jsx';
+import PatSettings from '../../ui/patient/PatSettings.jsx';
 
 export const renderRoutes = () => (
   <Router >
@@ -45,8 +48,10 @@ export const renderRoutes = () => (
         <Route path="/p/">
             <PatientContainer>
             <Route path="/p/xcv/home" component={PatHome}/>
+            <Route path="/p/xcv/notif" component={PatNotif}/>
+            <Route path="/p/xcv/access" component={PatAccess}/>
+            <Route path="/p/xcv/settings" component={PatSettings}/>
             <Route path="/p/xcv/response" component={SubmitResponse}/>
-
             </PatientContainer>
         </Route>
 

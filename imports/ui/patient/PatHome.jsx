@@ -10,7 +10,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import { PropagateLoader} from 'react-spinners';
 import { css } from 'react-emotion';
 import { Spin,Result,Card } from 'antd';
-import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,IdcardOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,CalendarOutlined } from '@ant-design/icons';
 import { patientDB } from '../../collections/patientDB';
 import { notifDB } from '../../collections/notifDB';
 import { regPatient } from '../../collections/regPatient';
@@ -20,10 +20,7 @@ const override = css`
     border-color: red;
 `;
 var state,url;
-
-const questions = ['പനി','ജലദോഷം','വയറിളക്കം','തൊണ്ടവേദന',
-'ചുമ','ശ്വാസംമുട്ടൽ','ശ്വാസതടസ്സം','സന്ധികളിൽ വേദന','ശക്തമായ തലവേദ','ക്ഷീണം അനുഭവപ്പെടുന്നുണ്ടോ'];
-
+ 
 class PatHome extends Component {
   constructor(props){
     super(props);
@@ -105,29 +102,44 @@ if (dd < 10) {
     // End 
 
     return (
-      <div className="ans-bg">
+      <div>
         <Notifications/>
   
-
+        <p className="today_date">{today}</p>
         <p className="ma-title">Home</p>
-      
-            <img className="login-logo" src='/img/icon_m.png'/>
-            <br/>
-    <p className="today_date">{today}</p>
-         <a href={"/p/xcv/response?uid="+this.props.patientInfo._id}>
-              <div className="go_question">
-                <p className="fill_q_text">
-                പ്രതിദിന ചോദ്യാവലി പൂരിപ്പിക്കാൻ ഇവിടെ ക്ലിക്ക് ചെയ്യുക
-                </p>
-              </div>
-  </a>
-  <br/>
-              <h3>അറിയിപ്പുകൾ</h3>
-              <hr/>
+    
+  
+   
+
+      <div className="mh_book_ap">
+        <center>
+        <CalendarOutlined />
+        <p className="hm_book_text">Book an Appointment</p>
+        </center>
+      </div>
+<br/>
+<br/>
+      <p className="ma-sub-title">Upcoming Events</p>
+      <p className="ma_nothing">Nothing to Show</p>
+
+<br/>
+<br/>
+      <p className="ma-sub-title">Your Profile</p>
+
+      <div className="hp_main_profile_holder">
+        <center>
+          <img src="/img/user.png" className="userimage"/>
+          <p className="hp_pp_name">Celento C George</p>
+          <p className="hp_info_p"><span className="hp_pp_gender">Male</span> | <span className="hp_pp_age">34</span></p>
+          <p className="edit_info">Edit Info</p>
+        </center>
+
+      </div>
 
 
-           
 
+
+          
 
             {this.props.notif.map(notif=>
   <div>
