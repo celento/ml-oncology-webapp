@@ -58,7 +58,6 @@ class RegisterPatient extends Component {
     
   }
 
-
   openNotification = (msg,desc) => {
     notification.open({
       message: msg,
@@ -138,7 +137,7 @@ class RegisterPatient extends Component {
  
     var hash = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i < 20; i++)
+    for (var i = 0; i < 25; i++)
     hash += possible.charAt(Math.floor(Math.random() * possible.length));
 
     var name = this.state.name;
@@ -151,7 +150,8 @@ class RegisterPatient extends Component {
       if(err){
         this.openNotification('Error!',"Something went wrong. Try again later")
       }else{
-        console.log("Done");
+        // console.log("Done");
+        this.props.history.push('/p/xcv/home?id='+hash);
       }
 
     })

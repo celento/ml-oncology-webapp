@@ -24,6 +24,7 @@ import PatientsDetail from '../../ui/official/PatientsDetail.jsx';
 import Tests from '../../ui/official/Tests.jsx';
 import BrainCancer from '../../ui/official/BrainCancer.jsx';
 import ResultBrain from '../../ui/official/ResultBrain.jsx';
+import PatientContainer from '../../ui/containers/PatientContainer.jsx';
 
 export const renderRoutes = () => (
   <Router >
@@ -40,15 +41,22 @@ export const renderRoutes = () => (
 
         <Route path="/register" component={RegisterPatient}/>
 
-        <Route path="/p/xcv/response" component={SubmitResponse}/>
-        <Route path="/p/xcv/home" component={PatHome}/>
 
-{/* 
-        <Route path="/d/">
-            <CandContainer>
-                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/home" component={Home}/>
-            </CandContainer>
-        </Route> */}
+        <Route path="/p/">
+            <PatientContainer>
+            <Route path="/p/xcv/home" component={PatHome}/>
+            <Route path="/p/xcv/response" component={SubmitResponse}/>
+
+            </PatientContainer>
+        </Route>
+
+
+
+
+         
+  
+
+     
 
 
         

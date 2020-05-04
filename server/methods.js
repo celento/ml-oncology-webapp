@@ -114,7 +114,7 @@ Meteor.methods({
 
     registerPatient(hash,name,age,gender,mobile){
 
-        regPatient.insert({name,hash,age,gender,mobile,
+        regPatient.insert({_id:hash,name,age,gender,mobile,
         timestamp:Date.now()
     })
 

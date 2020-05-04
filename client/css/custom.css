@@ -203,3 +203,42 @@
 .show_div{
   display: block;
 }
+
+.child-content-holder{
+  height: calc(100vh - 60px);
+}
+
+.mobile-navigation{
+  height: 60px;
+  background-color: #151414;
+  padding-top: 10px;
+  display: grid;
+ 
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+}
+
+.mn-item{
+  display: inline-block;
+  width:calc(100%/4);
+  justify-self: center; 
+}
+
+.hm_icon{
+    align-self: center;
+}
+
+.hm_text{
+  margin-bottom: 0px;
+  color: #fff;
+  font-size: 12px;
+  align-self: center;
+  /* font-weight: bold; */
+}
+
+.hm_icon_hold{
+  margin:0 auto;
+  width:0px;
+  display: block;
+  align-self: center;
+}

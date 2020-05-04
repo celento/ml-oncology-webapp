@@ -13,6 +13,7 @@ import { Spin,Result,Card } from 'antd';
 import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,IdcardOutlined } from '@ant-design/icons';
 import { patientDB } from '../../collections/patientDB';
 import { notifDB } from '../../collections/notifDB';
+import { regPatient } from '../../collections/regPatient';
 
 const override = css`
     display: block;
@@ -50,7 +51,7 @@ class PatHome extends Component {
  
 
 
-  if(!this.props.patientInfo || !this.props.notif){
+  if(!this.props.patientInfo){
     return(
       <div>
         <center>
@@ -65,21 +66,7 @@ class PatHome extends Component {
   }
 
   // console.log(this.props.patientInfo)
-
-
-
-  if(this.props.patientInfo.status == 0){
-    return(
-      <div className="login-box">
-        <center>
-        <Result
-    status="success"
-    title="നന്ദി"
-    subTitle="താങ്കൾ നൽകിയ വിവരങ്ങളുടെ ആധികാരികത ഉറപ്പാക്കുന്നതിനും  താങ്കളെ സഹായിക്കുന്നതിനുമായി ആരോഗ്യവകുപ്പ് പ്രവർത്തകർ തിരികെ വിളിക്കുന്നതാണ്"/>
-        </center>
-      </div>)
-  }
-   
+ 
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1; //January is 0!
@@ -118,13 +105,12 @@ if (dd < 10) {
     // End 
 
     return (
-      <div className="vh-bg">
+      <div className="ans-bg">
         <Notifications/>
   
- 
-        
-        <div className="login-box">
-            <center>
+
+        <p className="ma-title">Home</p>
+      
             <img className="login-logo" src='/img/icon_m.png'/>
             <br/>
     <p className="today_date">{today}</p>
@@ -134,25 +120,25 @@ if (dd < 10) {
                 പ്രതിദിന ചോദ്യാവലി പൂരിപ്പിക്കാൻ ഇവിടെ ക്ലിക്ക് ചെയ്യുക
                 </p>
               </div>
-</a>
-<br/>
+  </a>
+  <br/>
               <h3>അറിയിപ്പുകൾ</h3>
               <hr/>
 
 
-            </center>
+           
 
 
             {this.props.notif.map(notif=>
   <div>
-  <Card title={notif.title}>
-  <p>{notif.msg}</p>
 
-  <p className="site-card-demo-inner-p sm_msg_ttl">{notif.date}</p>
-   
-</Card>
-<br/>
-</div>
+  <Card title={notif.title}>
+      <p>{notif.msg}</p>
+      <p className="site-card-demo-inner-p sm_msg_ttl">{notif.date}</p>
+  </Card>
+
+  <br/>
+  </div>
   
   
   )}
@@ -160,7 +146,7 @@ if (dd < 10) {
             </div>
  
 
-             </div>
+       
     
 
     );
@@ -177,7 +163,7 @@ if (dd < 10) {
     Meteor.subscribe('patient-info',q);
 
     return{
-      patientInfo:patientDB.findOne({_id:q}),
+      patientInfo:regPatient.findOne({_id:q}),
       uid : q,
       notif:notifDB.find({},{sort:{timestamp:-1}}).fetch(),
     }

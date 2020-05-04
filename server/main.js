@@ -12,6 +12,7 @@ import { appointmentsDB } from '../imports/collections/appointmentsDB';
 import { doctorDB } from '../imports/collections/doctorDB.js';
 import { patientDB } from '../imports/collections/patientDB.js';
 import { testDB } from '../imports/collections/testDB.js';
+import { regPatient } from '../imports/collections/regPatient.js';
 
 
  
@@ -40,7 +41,10 @@ Meteor.startup(() => {
   Meteor.publish('patients-list', function(hid) {
     return patientDB.find({hospitalID:Number(hid)});
   });
- 
+
+  Meteor.publish('patient-info', function(userid) {
+    return regPatient.find({_id:userid});
+  });
 
   Meteor.publish('appointment-single', function(id) {
     return appointmentsDB.find({_id:id});
