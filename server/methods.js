@@ -158,5 +158,23 @@ Meteor.methods({
         })
     },
 
+    accessAppointment(aid,did){
+        Meteor.subscribe('appointment-single',aid);
+        Meteor.subscribe('doctor-userid',did);
+
+         var res = appointmentsDB.findOne({_id:aid});
+
+         console.log(res);
+         
+         var patID = res.patID;
+
+         var doctorInfo = doctorDB.findOne({userID:did});
+
+         Meteor.call('accessLog',patID,did,doctorInfo)
+
+
+    }
+
+
 })
 

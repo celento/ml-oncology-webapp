@@ -63,7 +63,7 @@ toggleLock(){
   
 
 
-  if(!this.props.patientInfo){
+  if(!this.props.patientInfo || !this.props.access){
     return(
       <div>
         <center>
@@ -77,8 +77,14 @@ toggleLock(){
     )
   }
 
-  console.log(this.props.patientInfo.datalock)
+  var accessLogs = null;
+  if(Object.keys(this.props.access)==0){
+      accessLogs =  <p className="ma_nothing">Nothing to Show</p>
+  }else{
+    accessLogs =  his.props.access.map(access=><div className="access_div_holder">{access.date}</div>)
+  }
 
+  
   if(this.props.patientInfo.datalock){
       var datalock = <div onClick={this.toggleLock}  className={"data_lock_divider"}>
       <center>
@@ -109,9 +115,9 @@ toggleLock(){
         <p className="ma-title">Access</p>
         {datalock}
         <br/>
-        <p className="ma-sub-title">Logs</p>
-        <p className="ma_nothing">Nothing to Show</p>
+        <p className="ma-sub-title">Logs</p>``
 
+        {accessLogs}
      
 
 

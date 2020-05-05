@@ -61,6 +61,7 @@ class AppointmentDetail extends TrackerReact(React.Component){
   };
 
 
+
   discard(){
     Meteor.call('discardAppointment',this.props.appointments._id,(err)=>{
       message.info('Patient Removed');
@@ -71,6 +72,15 @@ class AppointmentDetail extends TrackerReact(React.Component){
 handleChange(e){
   this.setState({
     additionalInfo:e.target.value,
+  })
+}
+
+componentDidMount(){
+  console.log(Meteor.userId())
+  Meteor.call('accessAppointment',this.props.match.params.aid,Meteor.userId(),(err)=>{
+      if(!err){
+        console.log("hello")
+      }
   })
 }
   
