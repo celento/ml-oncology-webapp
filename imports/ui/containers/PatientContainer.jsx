@@ -8,7 +8,7 @@ import { css } from 'react-emotion';
 import ReactTooltip from 'react-tooltip'
 import { patientDB } from '../../collections/patientDB';
 import { doctorDB } from '../../collections/doctorDB';
-import { HomeOutlined, NotificationOutlined, SettingOutlined } from '@ant-design/icons';
+import { HomeOutlined, NotificationOutlined, SettingOutlined,LockOutlined } from '@ant-design/icons';
 
 import Slider from 'react-slide-out';
  
@@ -41,6 +41,7 @@ class PatientContainer extends TrackerReact(React.Component) {
     }
 
     componentWillMount(){
+        // TODO -> Make it work with every pages
         const qs = require('query-string');
         q = qs.parse(this.props.location.search).id
         if((window.location.href).includes("home")){
@@ -118,7 +119,7 @@ class PatientContainer extends TrackerReact(React.Component) {
                   </div>
                   <div onClick={this.goAccess} className={"mn-item "+this.state.t3}>
                       <center>
-                        <HomeOutlined className="hm_icon" />
+                        <LockOutlined className="hm_icon" />
                         <p className="hm_text">Access</p>
                         </center>
                   </div>

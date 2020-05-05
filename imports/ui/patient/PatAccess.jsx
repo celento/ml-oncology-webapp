@@ -10,9 +10,9 @@ import {createContainer} from 'meteor/react-meteor-data';
 import { PropagateLoader} from 'react-spinners';
 import { css } from 'react-emotion';
 import { Spin,Result,Card } from 'antd';
-import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,CalendarOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,UnlockOutlined } from '@ant-design/icons';
 import { patientDB } from '../../collections/patientDB';
-import { notifDB } from '../../collections/notifDB';
+import { accessDB } from '../../collections/accessDB';
 import { regPatient } from '../../collections/regPatient';
 
 const override = css`
@@ -30,6 +30,7 @@ class PatAccess extends Component {
      
     };
 
+    this.toggleLock=this.toggleLock.bind(this);
    
   }
 
@@ -43,9 +44,23 @@ class PatAccess extends Component {
     
 }
 
+toggleLock(){
+  var curr_state = this.props.patientInfo.datalock;
+  var next_state = !curr_state;
+  const qs = require('query-string');
+  userid = qs.parse(this.props.location.search).id
+
+  Meteor.call('toggleDataLock',userid,next_state,(err)=>{
+    if(!err){
+      console.log("Done")
+    }
+  })
+}
+
 
   render(){
  
+  
 
 
   if(!this.props.patientInfo){
@@ -62,6 +77,29 @@ class PatAccess extends Component {
     )
   }
 
+  console.log(this.props.patientInfo.datalock)
+
+  if(this.props.patientInfo.datalock){
+      var datalock = <div onClick={this.toggleLock}  className={"data_lock_divider"}>
+      <center>
+          <UnlockOutlined className="data_lock_icon" />
+          <p className="data_lock_text"> DataLock is OFF</p>
+      </center>
+      </div>
+  }else{
+    var datalock = <div onClick={this.toggleLock} className={"data_lock_divider data_lock_on"}>
+    <center>
+        <LockOutlined className="data_lock_icon" />
+        <p className="data_lock_text"> DataLock is ON</p>
+    </center>
+    </div>
+  }
+
+
+
+
+
+
  
 
     return (
@@ -69,7 +107,13 @@ class PatAccess extends Component {
         <Notifications/>
   
         <p className="ma-title">Access</p>
+        {datalock}
+        <br/>
+        <p className="ma-sub-title">Logs</p>
         <p className="ma_nothing">Nothing to Show</p>
+
+     
+
 
      
       </div>
@@ -87,14 +131,14 @@ class PatAccess extends Component {
     const qs = require('query-string');
     q = qs.parse(props.location.search).id
 
-    Meteor.subscribe('notif-all');
+    Meteor.subscribe('access-user',q);
 
     Meteor.subscribe('patient-info',q);
 
     return{
       patientInfo:regPatient.findOne({_id:q}),
       uid : q,
-      notif:notifDB.find({},{sort:{timestamp:-1}}).fetch(),
+      access:accessDB.find({},{sort:{timestamp:-1}}).fetch(),
     }
     
   }, withRouter(PatAccess));

@@ -128,9 +128,9 @@ if (dd < 10) {
 
       <div className="hp_main_profile_holder">
         <center>
-          <img src="/img/user.png" className="userimage"/>
-          <p className="hp_pp_name">Celento C George</p>
-          <p className="hp_info_p"><span className="hp_pp_gender">Male</span> | <span className="hp_pp_age">34</span></p>
+          <img src={"/img/"+this.props.patientInfo.gender+".png"} className="userimage"/>
+          <p className="hp_pp_name">{this.props.patientInfo.name}</p>
+          <p className="hp_info_p"><span className="hp_pp_gender">{this.props.patientInfo.gender}</span> | <span className="hp_pp_age">{this.props.patientInfo.age}</span></p>
           <p className="edit_info">Edit Info</p>
         </center>
 

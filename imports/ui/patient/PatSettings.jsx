@@ -69,9 +69,17 @@ class PatSettings extends Component {
         <Notifications/>
   
         <p className="ma-title">Settings</p>
-        <p className="ma_nothing">Nothing to Show</p>
+       
+        <div className="hp_main_profile_holder">
+          <center>
+            <img src={"/img/"+this.props.patientInfo.gender+".png"} className="userimage"/>
+            <p className="hp_pp_name">{this.props.patientInfo.name}</p>
+            <p className="hp_info_p"><span className="hp_pp_gender">{this.props.patientInfo.gender}</span> | <span className="hp_pp_age">{this.props.patientInfo.age}</span></p>
+            <p className="edit_info">Edit Info</p>
+          </center>
 
-     
+        </div>
+
       </div>
  
 

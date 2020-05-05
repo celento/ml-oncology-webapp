@@ -13,6 +13,8 @@ import { doctorDB } from '../imports/collections/doctorDB.js';
 import { patientDB } from '../imports/collections/patientDB.js';
 import { testDB } from '../imports/collections/testDB.js';
 import { regPatient } from '../imports/collections/regPatient.js';
+import { notifDB } from '../imports/collections/notifDB.js';
+import { accessDB } from '../imports/collections/accessDB.js';
 
 
  
@@ -67,7 +69,12 @@ Meteor.startup(() => {
     return testDB.find({patientID:pid});
   });
  
-
+  Meteor.publish('notif-user', function(uid) {
+    return notifDB.find({userID:uid});
+  });
  
+  Meteor.publish('access-user', function(uid) {
+    return accessDB.find({userID:uid});
+  });
 
 });

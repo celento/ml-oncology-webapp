@@ -87,14 +87,14 @@ class PatNotif extends Component {
     const qs = require('query-string');
     q = qs.parse(props.location.search).id
 
-    Meteor.subscribe('notif-all');
+    Meteor.subscribe('notif-user',q);
 
     Meteor.subscribe('patient-info',q);
 
     return{
       patientInfo:regPatient.findOne({_id:q}),
       uid : q,
-      notif:notifDB.find({},{sort:{timestamp:-1}}).fetch(),
+      notif:notifDB.find({userID:q},{sort:{timestamp:-1}}).fetch(),
     }
     
   }, withRouter(PatNotif));

@@ -3,6 +3,7 @@ import { appointmentsDB } from "../imports/collections/appointmentsDB";
 import { patientDB } from "../imports/collections/patientDB";
 import { testDB } from "../imports/collections/testDB";
 import { regPatient } from "../imports/collections/regPatient";
+import { accessDB } from "../imports/collections/accessDB";
 
  
 
@@ -114,17 +115,48 @@ Meteor.methods({
 
     registerPatient(hash,name,age,gender,mobile){
 
-        regPatient.insert({_id:hash,name,age,gender,mobile,
+        regPatient.insert({_id:hash,name,age,gender,mobile,datalock:false,
         timestamp:Date.now()
     })
 
     },
 
+    toggleDataLock(userid,state){
+        regPatient.update({_id:userid},{
+            "$set":{
+                datalock:state
+            }
+        })
+    },
 
-    
- 
+    accessLog(userid,doctorid,doctorinfo){
 
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;   
+        var yyyy = today.getFullYear();
+        var hh = today.getHours();
+        var min = today.getMinutes();
+        var ss = today.getSeconds();
 
+        if (dd < 10) {
+        dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+        mm = '0' + mm;
+        }
+
+        today = mm + '/' + dd + '/' + yyyy + " " + hh+":"+min+":"+ss ;
+
+        accessDB.insert({
+            userID:userid,
+            doctorID:doctorid,
+            doctorInfo:doctorinfo,
+            timestamp:Date.now(),
+            date:today,
+        })
+    },
 
 })
 
