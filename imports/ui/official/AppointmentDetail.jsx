@@ -9,7 +9,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import Rodal from 'rodal';
-import { Descriptions, Spin,PageHeader,Input, Button,Popconfirm,message} from 'antd';
+import { Descriptions, Spin,PageHeader,Input, Button,Popconfirm,message,Result} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { patientDB } from '../../collections/patientDB';
 // import AshaContainer from '../containers/AshaContainer';
@@ -17,6 +17,7 @@ import { patientDB } from '../../collections/patientDB';
 import { AuditOutlined,SearchOutlined } from '@ant-design/icons';
 import { ansDB } from '../../collections/ansDB';
 import { appointmentsDB } from '../../collections/appointmentsDB';
+import { regPatient } from '../../collections/regPatient';
 
 
 const { TextArea } = Input;
@@ -86,9 +87,22 @@ componentDidMount(){
   
 render(){  
 
-  if(!this.props.appointments){
+  if(!this.props.appointments || !this.props.patientInfo){
     return(<div><Spin size="large" /></div>)
   }
+
+  if(this.props.patientInfo.datalock){
+    return( <Result
+      status="warning"
+      title="The Patient has DataLock enabled"
+      extra={
+        <Button onClick={()=>{ window.history.back();}} type="primary" key="console">
+          Go Back
+        </Button>
+      }
+    />)
+  }
+ 
 
  
 
@@ -147,9 +161,12 @@ render(){
 
 export default createContainer((props)=>{
  
-  console.log(props.match.params.aid)
+  var patID = (props.match.params.aid).split("_")[1];
   Meteor.subscribe('appointment-single',props.match.params.aid);
-    return{ 
+  Meteor.subscribe('patient-info',patID);
+  return{ 
       appointments:appointmentsDB.findOne({_id:props.match.params.aid}),
+      patientInfo:regPatient.findOne({_id:patID}),
+
   };
 }, AppointmentDetail);  

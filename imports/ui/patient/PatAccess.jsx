@@ -81,11 +81,22 @@ toggleLock(){
   if(Object.keys(this.props.access)==0){
       accessLogs =  <p className="ma_nothing">Nothing to Show</p>
   }else{
-    accessLogs =  his.props.access.map(access=><div className="access_div_holder">{access.date}</div>)
+    accessLogs =  this.props.access.map(access=><div className="access_div_holder"><div className="access_div_left">
+        <UnlockOutlined className="access_big_lock"/>
+      </div>
+      <div className="access_div_right">
+          <p className="access_doctor_date">{access.date}</p>
+          <p className="access_doctor_name">{access.doctorInfo.name}</p>
+          <p className="access_doctor _license">#{access.doctorInfo.license}</p>
+          <p className="access_doctor_hid">Hospital ID : {access.doctorInfo.hospital}</p>
+        
+
+      </div>
+      </div>)
   }
 
   
-  if(this.props.patientInfo.datalock){
+  if(!this.props.patientInfo.datalock){
       var datalock = <div onClick={this.toggleLock}  className={"data_lock_divider"}>
       <center>
           <UnlockOutlined className="data_lock_icon" />
@@ -115,7 +126,7 @@ toggleLock(){
         <p className="ma-title">Access</p>
         {datalock}
         <br/>
-        <p className="ma-sub-title">Logs</p>``
+        <p className="ma-sub-title">Logs</p>
 
         {accessLogs}
      
