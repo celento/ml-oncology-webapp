@@ -58,14 +58,11 @@ Meteor.methods({
                     timstamp:Date.now(),
                     creation:today,
                     name:name,
-                    dp:"/img/no_pp.png",
+                    dp:"/img/user.png",
                     hospital:hospital,
                     license:license
-
                 })
-
- 
-
+                
         console.log("Updated to the ACCOUNT DB + Doctor DB");
 
     },

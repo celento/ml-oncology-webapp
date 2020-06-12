@@ -3,10 +3,6 @@ import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
   
 import CandContainer from '../../ui/containers/CandContainer.jsx'
  
-   
- 
- 
-
 import LoginPageDoctor from '../../ui/pages/LoginPageOfficial.jsx';
 import SignupPageDoctor from '../../ui/pages/SignupPageDoctor.jsx';
 import RegisterPatient from '../../ui/pages/RegisterPatient.jsx';
@@ -28,6 +24,7 @@ import PatientContainer from '../../ui/containers/PatientContainer.jsx';
 import PatNotif from '../../ui/patient/PatNotif.jsx';
 import PatAccess from '../../ui/patient/PatAccess.jsx';
 import PatSettings from '../../ui/patient/PatSettings.jsx';
+import PatBook from '../../ui/patient/PatBook.jsx';
 
 export const renderRoutes = () => (
   <Router >
@@ -37,31 +34,20 @@ export const renderRoutes = () => (
         <Route exact path="/login" component={LoginPageDoctor}/>
  
         <Route exact path="/signup" component={SignupPageDoctor}/>
-      
 
-
-  
 
         <Route path="/register" component={RegisterPatient}/>
-
 
         <Route path="/p/">
             <PatientContainer>
             <Route path="/p/xcv/home" component={PatHome}/>
+            <Route path="/p/xcv/book" component={PatBook}/>
             <Route path="/p/xcv/notif" component={PatNotif}/>
             <Route path="/p/xcv/access" component={PatAccess}/>
             <Route path="/p/xcv/settings" component={PatSettings}/>
             <Route path="/p/xcv/response" component={SubmitResponse}/>
             </PatientContainer>
         </Route>
-
-
-
-
-         
-  
-
-     
 
 
         
