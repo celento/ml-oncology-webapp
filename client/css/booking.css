@@ -21,6 +21,36 @@
   background:#f44336;
 }
 
+.book_begin{
+  font-size: 30px;
+  font-family: CMainBold;
+  line-height: 40px;
+}
+
+.acs_text{
+  color: #ff7e75;
+  line-height: 25px;
+}
+
+.resp_question{
+  font-weight: bold;
+  color: #82f9ad;
+  font-size: 14px;
+}
+
+.resp_answer{
+  color: #ffa6a6;
+}
+
+
+.bc_split{
+  width:100%
+}
+
+.bc_split_{
+  width:50%;
+  display: inline-block;
+}
 /* .pat_button_resp:hover{
   background:#f44336;
 } */

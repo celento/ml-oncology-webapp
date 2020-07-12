@@ -36,7 +36,7 @@ const { Dragger } = Upload;
 
 
 
-class BrainCancer extends TrackerReact(React.Component){
+class BreastCancer extends TrackerReact(React.Component){
 
   constructor(props) {
     super(props);
@@ -135,7 +135,7 @@ class BrainCancer extends TrackerReact(React.Component){
       console.log(postData)
 
       
-      HTTP.call( 'POST', 'http://localhost:7001/brain_cancer', postData, 
+      HTTP.call( 'POST', 'http://localhost:7001/breast_cancer', postData, 
          function( error, response ) {
       
          if ( error ) {
@@ -147,7 +147,7 @@ class BrainCancer extends TrackerReact(React.Component){
 
             Meteor.call("storeResult",this.props.match.params.pid,p,c,this.state.uploadLink,(err)=>{
               if(!err){
-                this.props.history.push("/d/result/brain/"+this.props.match.params.pid)
+                this.props.history.push("/d/result/blood/"+this.props.match.params.pid)
               }
             })
             
@@ -280,7 +280,7 @@ render(){
 <PageHeader
     className="site-page-header"
     onBack={() =>window.history.back()}
-    title="Brain Cancer Testing"
+    title="Breast Cancer Testing"
     // subTitle="This is a subtitle"
   />
 
@@ -302,19 +302,32 @@ render(){
 <br/><br/>
  
 
-<h3>Upload MRI Scan</h3>
-<p> The image has to be in .jpg or .jpeg file format and has to be less than 20MB in size</p>
+<h3>Data</h3>
+<p> The image has to be in .jpg, .jpeg or .png file format and has to be less than 20MB in size</p>
 <br/>
-    <Dragger accept=".jpg,.jpeg,.png" onChange={this.upload}>
-    <p className="ant-upload-drag-icon">
-      <InboxOutlined />
-    </p>
-    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-    <p className="ant-upload-hint">
-      Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-      band files
-    </p>
-  </Dragger>
+
+<div className="bc_split">
+  <div className="bc_split_">
+  <Input placeholder="mean of distances from center to points on the perimeter" addonBefore={"Radius"} />
+
+  <br/>
+
+  <Input placeholder="severity of concave portions of the contour" addonBefore={"Area"} />
+
+  <br/>
+
+  <Input placeholder="" addonBefore={"Concavity"} />
+
+  <br/>
+
+  </div>
+  <div className="bc_split_">
+  <Input placeholder="" addonBefore={"Perimeter"} />
+  <br/>
+  <Input placeholder="number of concave portions of the contour" addonBefore={"Concave Points"} />
+
+  </div>
+</div>
 
 <br/>
 <div className={this.state.progressView}>
@@ -355,4 +368,4 @@ export default createContainer((props)=>{
       patient:patientDB.findOne({_id:props.match.params.pid}),
       
   };
-}, BrainCancer);  
+}, BreastCancer);  

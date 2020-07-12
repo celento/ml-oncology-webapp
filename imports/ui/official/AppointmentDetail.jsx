@@ -77,8 +77,7 @@ handleChange(e){
 }
 
 componentDidMount(){
-  console.log(Meteor.userId())
-  Meteor.call('accessAppointment',this.props.match.params.aid,Meteor.userId(),(err)=>{
+  Meteor.call('accessAppointment',this.props.match.params.aid,Meteor.userId(),"Accessed your appointment",(err)=>{
       if(!err){
         console.log("hello")
       }
@@ -103,6 +102,23 @@ render(){
     />)
   }
  
+
+  var responses = [];
+
+  var q = this.props.appointments.questions;
+  var a = this.props.appointments.answers;
+
+  for(var i=0;i<q.length;i++){
+      responses.push(
+      <div className="single_resp">
+          <p className="resp_question">{i+1+" : " + q[i]}</p>
+          <p className="resp_answer">{"Ans : " +a[i]}</p>
+      </div>
+     
+      )
+  }
+
+  responses = <div className="responses">{responses}</div>
 
  
 
@@ -130,6 +146,11 @@ render(){
  
   </Descriptions> 
 <br/>
+<h2>Patient Responses</h2>
+
+{responses}
+
+
 <br/>
   <h2>Additional Notes</h2>
   <TextArea rows={4} onChange={this.handleChange} />
@@ -164,9 +185,10 @@ export default createContainer((props)=>{
   var patID = (props.match.params.aid).split("_")[1];
   Meteor.subscribe('appointment-single',props.match.params.aid);
   Meteor.subscribe('patient-info',patID);
+
+  
   return{ 
       appointments:appointmentsDB.findOne({_id:props.match.params.aid}),
       patientInfo:regPatient.findOne({_id:patID}),
-
   };
 }, AppointmentDetail);  

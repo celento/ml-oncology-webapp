@@ -126,7 +126,7 @@ Meteor.methods({
         })
     },
 
-    accessLog(userid,doctorid,doctorinfo){
+    accessLog(userid,doctorid,doctorinfo,type){
 
         var today = new Date();
         var dd = today.getDate();
@@ -151,11 +151,12 @@ Meteor.methods({
             doctorID:doctorid,
             doctorInfo:doctorinfo,
             timestamp:Date.now(),
+            type:type,
             date:today,
         })
     },
 
-    accessAppointment(aid,did){
+    accessAppointment(aid,did,type){
         Meteor.subscribe('appointment-single',aid);
         Meteor.subscribe('doctor-userid',did);
 
@@ -167,11 +168,46 @@ Meteor.methods({
 
          var doctorInfo = doctorDB.findOne({userID:did});
 
-         Meteor.call('accessLog',patID,did,doctorInfo)
+         Meteor.call('accessLog',patID,did,doctorInfo,type)
 
 
+    },
+
+
+    newAppointment(appointmentID,aID,patientID,name,age,gender,mobile,appointmentTime,appointmentTS,test,questions,answers){
+
+        appointmentsDB.insert({
+            _id:appointmentID,
+            aID,
+            patID:patientID,
+            timestamp:Date.now(),  
+            name,age,gender,phone:mobile,appointmentTime,
+            TSappointment:appointmentTS,TScreation:Date.now(),test,hospitalID:1234,
+            answers:answers,
+            questions:questions
+        })
     }
+    ,
 
+    storeResult(pid,p,c,link){
+        testDB.update({patientID:pid},{
+            "$set":{
+                p,c,link
+            }
+        })
+    },
+
+
+
+    // sendtoPatient(pid,test){
+    //     notifDB.insert({
+    //         patientID:pid,
+    //         test:test,
+    //     })
+              
+            
+    //     }
+ 
 
 })
 

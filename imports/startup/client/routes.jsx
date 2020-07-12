@@ -25,6 +25,12 @@ import PatNotif from '../../ui/patient/PatNotif.jsx';
 import PatAccess from '../../ui/patient/PatAccess.jsx';
 import PatSettings from '../../ui/patient/PatSettings.jsx';
 import PatBook from '../../ui/patient/PatBook.jsx';
+import BloodCancer from '../../ui/official/BloodCancer.jsx';
+import SkinCancer from '../../ui/official/SkinCancer.jsx';
+import BreastCancer from '../../ui/official/BreastCancer.jsx';
+import ResultBreast from '../../ui/official/ResultBreast.jsx';
+import ResultSkin from '../../ui/official/ResultSkin.jsx';
+import ResultBlood from '../../ui/official/ResultBlood.jsx';
 
 export const renderRoutes = () => (
   <Router >
@@ -61,8 +67,21 @@ export const renderRoutes = () => (
                 {/* Tests */}
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/test/brain/:pid" component={BrainCancer}/> 
 
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/test/blood/:pid" component={BloodCancer}/> 
+
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/test/skin/:pid" component={SkinCancer}/>
+
+                
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/test/breast/:pid" component={BreastCancer}/>  
+
                 {/* Results */}
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/result/brain/:pid" component={ResultBrain}/> 
+
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/result/breast/:pid" component={ResultBreast}/> 
+
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/result/skin/:pid" component={ResultSkin}/> 
+
+                <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/result/blood/:pid" component={ResultBlood}/> 
 
 
                 <Route onUpdate={() => window.scrollTo(0, 0)} path="/d/tests" component={Tests}/>

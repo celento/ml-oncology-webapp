@@ -36,7 +36,7 @@ const { Dragger } = Upload;
 
 
 
-class BrainCancer extends TrackerReact(React.Component){
+class SkinCancer extends TrackerReact(React.Component){
 
   constructor(props) {
     super(props);
@@ -147,7 +147,7 @@ class BrainCancer extends TrackerReact(React.Component){
 
             Meteor.call("storeResult",this.props.match.params.pid,p,c,this.state.uploadLink,(err)=>{
               if(!err){
-                this.props.history.push("/d/result/brain/"+this.props.match.params.pid)
+                this.props.history.push("/d/result/skin/"+this.props.match.params.pid)
               }
             })
             
@@ -302,8 +302,8 @@ render(){
 <br/><br/>
  
 
-<h3>Upload MRI Scan</h3>
-<p> The image has to be in .jpg or .jpeg file format and has to be less than 20MB in size</p>
+<h3>Upload</h3>
+<p> The image has to be in .jpg, .jpeg or .png file format and has to be less than 20MB in size</p>
 <br/>
     <Dragger accept=".jpg,.jpeg,.png" onChange={this.upload}>
     <p className="ant-upload-drag-icon">
@@ -355,4 +355,4 @@ export default createContainer((props)=>{
       patient:patientDB.findOne({_id:props.match.params.pid}),
       
   };
-}, BrainCancer);  
+}, SkinCancer);  

@@ -50,6 +50,10 @@ Meteor.startup(() => {
 
   Meteor.publish('appointment-single', function(id) {
     return appointmentsDB.find({_id:id});
+  });  
+  
+  Meteor.publish('appointment-pid', function(id) {
+    return appointmentsDB.find({patID:id});
   });
 
   Meteor.publish('patients-single', function(id) {

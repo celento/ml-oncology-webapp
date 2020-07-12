@@ -30,6 +30,7 @@ class PatHome extends Component {
      
     };
 
+    this.book = this.book.bind(this);
    
   }
 
@@ -41,6 +42,10 @@ class PatHome extends Component {
   handleSubmit(e){
      
     
+}
+
+book(){
+  this.props.history.push("/p/xcv/book?id="+this.props.uid)
 }
 
 
@@ -109,9 +114,8 @@ if (dd < 10) {
         <p className="ma-title">Home</p>
     
   
-   
-
-      <div className="mh_book_ap">
+ 
+    <div onClick={this.book} className="mh_book_ap">
         <center>
         <CalendarOutlined />
         <p className="hm_book_text">Book an Appointment</p>

@@ -75,7 +75,7 @@ class PatientsDetail extends TrackerReact(React.Component){
     setTimeout(() => {
       message.success("Patient referred for Checkup")
       this.setState({ iconLoading: false });
-      this.props.history.push('/d/home')
+      this.props.history.push('/d/tests')
     }, 1000);
   };
 
@@ -146,9 +146,27 @@ onChangeDate(value, dateString) {
   
 render(){  
 
-  if(!this.props.patient || !this.props.test){
+  if(!this.props.patient || !this.props.test ){
     return(<div><Spin size="large" /></div>)
   }
+
+
+  var responses = [];
+
+  var q = this.props.patient.initialInfo.questions;
+  var a = this.props.patient.initialInfo.answers;
+
+  for(var i=0;i<q.length;i++){
+      responses.push(
+      <div className="single_resp">
+          <p className="resp_question">{i+1+" : " + q[i]}</p>
+          <p className="resp_answer">{"Ans : " +a[i]}</p>
+      </div>
+     
+      )
+  }
+
+  responses = <div className="responses">{responses}</div>
 
 
   var testData = null;
@@ -228,7 +246,7 @@ render(){
       }
       key="2"
     >
-      Tab 2
+     {responses}
     </TabPane>
 
     <TabPane
@@ -288,7 +306,7 @@ render(){
 
 <br/>
 <br/>
-    <Button
+    {/* <Button
           type="primary"
           size="large"
           icon={<AuditOutlined />}
@@ -303,7 +321,7 @@ render(){
           Discard Record
         </Button>
       </Popconfirm>
-    
+     */}
 
 
       <Modal
@@ -351,9 +369,11 @@ export default createContainer((props)=>{
 
   Meteor.subscribe('patients-single',props.match.params.pid);
   Meteor.subscribe('test-single',props.match.params.pid);
+  
     return{ 
       patient:patientDB.findOne({_id:props.match.params.pid}),
       test:testDB.find({patientID:props.match.params.pid}).fetch(),
+     
       
   };
 }, PatientsDetail);  

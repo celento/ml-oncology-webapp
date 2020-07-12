@@ -79,7 +79,7 @@ class SignupPageDoctor extends Component {
                   if(err){
                      alert("Incorrect email or password")
                   } else { 
-                      this.props.history.push('/d/start');
+                      this.props.history.push('/d/home');
                   }
                 });
               }
@@ -154,8 +154,6 @@ class SignupPageDoctor extends Component {
       >
         <Input prefix={<BankOutlined className="site-form-item-icon" />} placeholder="Hospital" />
       </Form.Item>
-
-
 
 
       <Form.Item

@@ -105,7 +105,7 @@ const override = css`
 
 
 
-class ResultBrain extends TrackerReact(React.Component){
+class ResultSkin extends TrackerReact(React.Component){
 
   constructor(props) {
     super(props);
@@ -387,4 +387,4 @@ export default createContainer((props)=>{
       test:testDB.find({patientID:props.match.params.pid}).fetch()[0],
       
   };
-}, ResultBrain);  
+}, ResultSkin);  

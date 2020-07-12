@@ -87,10 +87,9 @@ toggleLock(){
       <div className="access_div_right">
           <p className="access_doctor_date">{access.date}</p>
           <p className="access_doctor_name">{access.doctorInfo.name}</p>
+          <p className="access_doctor_hid">{access.type}</p>
           <p className="access_doctor _license">#{access.doctorInfo.license}</p>
           <p className="access_doctor_hid">Hospital ID : {access.doctorInfo.hospital}</p>
-        
-
       </div>
       </div>)
   }
@@ -152,10 +151,11 @@ toggleLock(){
 
     Meteor.subscribe('patient-info',q);
 
+    console.log(accessDB.find({userID:q},{sort:{timestamp:-1}}).fetch())
     return{
       patientInfo:regPatient.findOne({_id:q}),
       uid : q,
-      access:accessDB.find({},{sort:{timestamp:-1}}).fetch(),
+      access:accessDB.find({userID:q},{sort:{timestamp:-1}}).fetch(),
     }
     
   }, withRouter(PatAccess));

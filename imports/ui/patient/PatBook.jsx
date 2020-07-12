@@ -9,7 +9,7 @@ import {createContainer} from 'meteor/react-meteor-data';
  
 import { PropagateLoader} from 'react-spinners';
 import { css } from 'react-emotion';
-import { Spin,Result,Card } from 'antd';
+import { Spin,Button,Modal,DatePicker,message} from 'antd';
 import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,CalendarOutlined } from '@ant-design/icons';
 import { patientDB } from '../../collections/patientDB';
 import { notifDB } from '../../collections/notifDB';
@@ -43,6 +43,8 @@ var qBreast = null;
 var qBlood = null;
 var qBrain = null;
 var qSkin = null;
+var qInfo = null;
+
 
 var rQuestions = []
 var rAnswers = []
@@ -52,11 +54,18 @@ class PatBook extends Component {
     super(props);
     
     this.state = {
-      view : null
+      view : null,
+      visible:false,
+      appointmentTime:null,
+      appointmentTS:null,
+      test:null,
     };
 
     this.resp=this.resp.bind(this)
+    this.begin=this.begin.bind(this)
     this.initalState=this.initalState.bind(this)
+    this.onChangeDate = this.onChangeDate.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
    
   }
 
@@ -66,12 +75,80 @@ handleSubmit(e){
     
 } 
 
-initalState(){
-  console.log("lol")
+
+// Test 
+showModal = () => {
+  this.setState({
+    visible: true,
+  });
+};
+ 
+
+
+onChangeDate(value, dateString) {
+  var ts = new Date(dateString).getTime();
+
+  if(Date.now()>ts){
+    message.error("Invalid Date/Time. Can't go back in Time. LOL!")
+  }else{
+
+    this.setState({
+      appointmentTime:dateString,
+      appointmentTS:ts,
+    })
+
+  }
+}
+
+
+
+begin(){
   this.setState({
     view: qData[0].view,
   })
 }
+
+initalState(){
+  this.setState({
+    view: qInfo[0].view,
+  })
+}
+
+handleCancel = e => {
+ 
+  this.setState({
+    visible: false,
+  });
+};
+
+// Modal OK
+handleOk = e => {
+
+  if(this.state.appointmentTime!=null){
+
+  var appointmentID  = "";
+  var possible = 
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 13; i++)
+    appointmentID += possible.charAt(Math.floor(Math.random() * possible.length));
+   
+  var appID = appointmentID+"_"+this.props.uid;
+
+  Meteor.call('newAppointment',appID,appointmentID,this.props.uid,this.props.patientInfo.name,this.props.patientInfo.age,this.props.patientInfo.gender,this.props.patientInfo.mobile,this.state.appointmentTime,this.state.appointmentTS,this.state.test,rQuestions,rAnswers,(err)=>{
+    if(!err){
+      message.success("Appointment Booked")
+    }
+  })
+
+  this.setState({
+    visible: false,
+  });
+}else{
+  message.error("Please choose a valid Date/Time")
+}
+};
+
 
 resp(type,next,inc,sid,qid,aid){
 
@@ -80,19 +157,23 @@ resp(type,next,inc,sid,qid,aid){
 
     if(next==58){
     this.setState({
-      view:results[0].view
+      view:results[0].view,
+      test:"Brain Cancer"
     })
   }else if(next==60){
     this.setState({
-      view:results[1].view
+      view:results[1].view,
+      test:"Blood Cancer"
     })
   }else if(next==62){
     this.setState({
-      view:results[2].view
+      view:results[2].view,
+      test:"Skin Cancer"
     })
   }else if(next==64){
     this.setState({
-      view:results[3].view
+      view:results[3].view,
+      test:"Breast Cancer"
     })
   } 
 
@@ -281,6 +362,29 @@ resp(type,next,inc,sid,qid,aid){
 // cancerid,nextq,scoreinc,questionid,answerid
 
 if(!renderDone){
+
+  qInfo = [{
+    view : <div className="pat_question_view"> 
+    <br/>
+    <br/>
+    <br/>
+    <br/>  <br/>
+    <br/><br/>
+    <br/>
+    <h1 className="book_begin">
+      Welcome to your Personal Assessment
+    </h1>
+
+    <p className="book_subtitle">
+      The Personalized Assessment helps you assess your current  health condition and lets you book an appointment with the doctor if necessary. 
+    </p>
+
+    <Button onClick={this.begin} className="getStartedbtn" type="primary">Get Started</Button>
+ 
+
+    </div>
+  }]
+
 
 
  qData = [{
@@ -840,12 +944,27 @@ results = [
  
   {
 
-    view : <div className="pat_question_view">
-    <p id="bt4" className="pat_question">You got 2 weeks on Earth</p>
+    view : <div className="pat_question_view"> 
+    <br/>
+    <br/>
+    <br/>
+    <br/>  <br/>
+    <br/><br/>
+    <br/>
+    <h1 className="book_begin">
+      Assessment Complete
+    </h1>
 
-    <p>Be greatful for everything you ever had. Humans might forget you, but you will forever be remembered by our Blockchain. Die in peace little one. </p>
-    
-    </div>,
+    <h2 className="acs_text">Based on your answers, you are in high risk category for <b>Brain Cancer</b></h2>
+
+    <p className="book_subtitle">
+       Book an appointment with the nearest doctor and get yourself checked.
+    </p>
+
+    <Button onClick={this.showModal} className="getStartedbtn" type="primary">Book an Appointment</Button>
+ 
+
+    </div>
 
   },
 
@@ -910,6 +1029,28 @@ if(this.state.view==null){
         <p className="ma_nothing">Nothing to Show</p> */}
 
         {this.state.view}
+
+
+
+        <Modal
+          title="Book an Appointment"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          okText="Confirm"
+          onCancel={this.handleCancel}
+        >
+ 
+           <p><b>Test :</b> {this.state.test} </p>
+
+
+           <p> <b>Appointment Date & Time </b></p>
+          <DatePicker showTime={{ format: 'HH:mm' }} onChange={this.onChangeDate}/>
+          <br />
+          <br />
+        
+ 
+     
+        </Modal>
 
 
 

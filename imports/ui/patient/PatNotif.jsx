@@ -70,7 +70,11 @@ class PatNotif extends Component {
   
         <p className="ma-title">Notifications</p>
         <p className="ma_nothing">Nothing to Show</p>
-
+{/* 
+        {this.props.notif.map(test=>(<div><Card type="inner" title={test.test}>
+        Appointment : {test.date}  <br/>
+        Status : {test.status} <br/>
+    </Card> <br/></div>))} */}
      
       </div>
  
