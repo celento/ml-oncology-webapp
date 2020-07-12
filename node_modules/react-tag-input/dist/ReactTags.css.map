@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://ReactTags/./src/styles/react-tags.scss"],"names":[],"mappings":"AAAA;AACA,aAAa;;AAEb;AACA,eAAe","file":"ReactTags.css","sourcesContent":[".react-tags-wrapper .tag-wrapper.opacity-none {\n  opacity: 0; }\n\n.react-tags-wrapper .tag-wrapper.cursor-move {\n  cursor: move; }\n"],"sourceRoot":""}

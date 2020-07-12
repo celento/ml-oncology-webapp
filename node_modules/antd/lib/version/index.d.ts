@@ -1,0 +1,2 @@
+declare var _default: "4.1.0";
+export default _default;
