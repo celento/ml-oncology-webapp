@@ -101,11 +101,23 @@ onChangeDate(value, dateString) {
 }
 
 
-
 begin(){
-  this.setState({
-    view: qData[0].view,
-  })
+
+  console.log(this.props.patientInfo.gender)
+
+  if(this.props.patientInfo.gender=="Male"){
+    this.setState({
+      view: qData[0].view,
+    })
+  }else{
+    this.setState({
+      view: qData[4].view,
+    })
+  }
+
+  
+
+
 }
 
 initalState(){
@@ -176,7 +188,6 @@ resp(type,next,inc,sid,qid,aid){
       test:"Breast Cancer"
     })
   } 
-
     return
   }
 
@@ -399,6 +410,7 @@ if(!renderDone){
   asked : false,
 },
 
+// 1
 // todo
 {
   view : <div className="pat_question_view">
@@ -411,6 +423,7 @@ if(!renderDone){
 
 },
 
+// 2
 // todo
 {
   view : <div className="pat_question_view">
@@ -418,19 +431,44 @@ if(!renderDone){
       <div id="ga31" onClick={()=>this.resp(0,0,10,0,3,1)} className="pat_button_resp">Bone-Pain</div>
       <div id="ga32" onClick={()=>this.resp(0,0,10,0,3,2)} className="pat_button_resp">Lumps in Armpits /  Swellings in any part of the Breast</div>
       <div id="ga33" onClick={()=>this.resp(0,0,10,0,3,3)} className="pat_button_resp">Pale Skin</div>
-      <div id="ga34" onClick={()=>this.resp(0,0,10,0,3,4)} className="pat_button_resp">Excessive Bleeding Periods</div>
   </div>,
   asked : false,
 
 },
 
+// 3
 // todo
 {
   view : <div className="pat_question_view">
       <p id="gq4" className="pat_question">Which among the symptoms trouble you the most?</p>
-      <div id="ga41" onClick={()=>this.resp(0,0,10,0,4,1)} className="pat_button_resp">flesh-colored scar-like lesion</div>
+      <div id="ga41" onClick={()=>this.resp(0,0,10,0,4,1)} className="pat_button_resp">Flesh-colored scar-like lesion</div>
       <div id="ga42" onClick={()=>this.resp(0,0,10,0,4,2)} className="pat_button_resp">Bleeding sore</div>
       <div id="ga43" onClick={()=>this.resp(0,0,10,0,4,3)} className="pat_button_resp">Itchy/Painful lesion</div>
+  </div>,
+  asked : false,
+
+},
+
+// 4
+{
+view : <div className="pat_question_view">
+      <p id="gq5" className="pat_question">Have you ever been troubling with these set of symptoms ?</p>
+      <div id="ga51" onClick={()=>this.resp(0,1,10,0,5,1)} className="pat_button_resp">Headache,Vomiting, Memory loss</div>
+      <div id="ga52" onClick={()=>this.resp(0,2,10,0,5,2)} className="pat_button_resp">Bone-Pain, Excessive Bleeding Periods, Pale Skin</div>
+      <div id="ga53" onClick={()=>this.resp(0,3,10,0,5,3)} className="pat_button_resp">Flesh-colored scar-like lesion, Bleeding sore, Itchy/Painful lesion</div>
+      <div id="ga54" onClick={()=>this.resp(0,5,10,0,5,4)} className="pat_button_resp">Lumps in the underarm, swellings in any part of breast</div>
+      <div id="ga55" onClick={()=>this.resp(0,0,0,0,5,5)} className="pat_button_resp">None of the above</div>
+  </div>,
+
+  asked : false,
+},
+
+// 5
+{
+  view : <div className="pat_question_view">
+      <p id="gq6" className="pat_question">Enter the symptom that troubles you most?</p>
+      <div id="ga61" onClick={()=>this.resp(4,0,10,0,6,1)} className="pat_button_resp">Lumps in the underarm</div>
+      <div id="ga62" onClick={()=>this.resp(4,1,10,0,6,2)} className="pat_button_resp">Swelling in any part of the breast</div>
   </div>,
   asked : false,
 
@@ -893,8 +931,8 @@ asked : false,
 {
   view : <div className="pat_question_view">
   <p id="bt1" className="pat_question">Do you feel any thickness in any part of the breast?</p>
-  <div id="bta11" onClick={()=>this.resp(3,1,10,4,1,1)} className="pat_button_resp">Yes</div>
-  <div id="bta12" onClick={()=>this.resp(3,2,0,4,1,2)} className="pat_button_resp">No</div>
+  <div id="bta11" onClick={()=>this.resp(4,1,10,4,1,1)} className="pat_button_resp">Yes</div>
+  <div id="bta12" onClick={()=>this.resp(4,2,0,4,1,2)} className="pat_button_resp">No</div>
   </div>,
   asked : false,
 
@@ -905,8 +943,8 @@ asked : false,
 {
   view : <div className="pat_question_view">
   <p id="bt2" className="pat_question">Is there any pain experienced in that area?</p>
-  <div id="bta21" onClick={()=>this.resp(3,2,10,4,2,1)} className="pat_button_resp">Yes</div>
-  <div id="bta22" onClick={()=>this.resp(3,3,0,4,2,2)} className="pat_button_resp">No</div>
+  <div id="bta21" onClick={()=>this.resp(4,2,10,4,2,1)} className="pat_button_resp">Yes</div>
+  <div id="bta22" onClick={()=>this.resp(4,3,0,4,2,2)} className="pat_button_resp">No</div>
   </div>,
   asked : false,
 
@@ -917,8 +955,8 @@ asked : false,
 {
   view : <div className="pat_question_view">
   <p id="bt3" className="pat_question">Is there any bloody discharge from the nipples?</p>
-  <div id="bta31" onClick={()=>this.resp(3,64,10,4,3,1)} className="pat_button_resp">Yes</div>
-  <div id="bta32" onClick={()=>this.resp(3,3,0,4,3,2)} className="pat_button_resp">No</div>
+  <div id="bta31" onClick={()=>this.resp(4,64,10,4,3,1)} className="pat_button_resp">Yes</div>
+  <div id="bta32" onClick={()=>this.resp(4,3,0,4,3,2)} className="pat_button_resp">No</div>
   </div>,
   asked : false,
 
@@ -929,8 +967,8 @@ asked : false,
 {
   view : <div className="pat_question_view">
   <p id="bt4" className="pat_question">Have you observed any reddish spots across the skin over the breast?</p>
-  <div id="bta41" onClick={()=>this.resp(3,'x',10,4,4,1)} className="pat_button_resp">Yes</div>
-  <div id="bta42" onClick={()=>this.resp(3,'x',0,4,4,2)} className="pat_button_resp">No</div>
+  <div id="bta41" onClick={()=>this.resp(3,64,10,4,4,1)} className="pat_button_resp">Yes</div>
+  <div id="bta42" onClick={()=>this.resp(3,65,0,4,4,2)} className="pat_button_resp">No</div>
   </div>,
   asked : false,
 
@@ -969,37 +1007,81 @@ results = [
   },
 
   {
+    view : <div className="pat_question_view"> 
+    <br/>
+    <br/>
+    <br/>
+    <br/>  <br/>
+    <br/><br/>
+    <br/>
+    <h1 className="book_begin">
+      Assessment Complete
+    </h1>
 
-    view : <div className="pat_question_view">
-    <p id="bt4" className="pat_question">You got 2 weeks on Earth</p>
+    <h2 className="acs_text">Based on your answers, you are in high risk category for <b>Brain Cancer</b></h2>
 
-    <p>Be greatful for everything you ever had and die in peace</p>
-    
-    </div>,
+    <p className="book_subtitle">
+       Book an appointment with the nearest doctor and get yourself checked.
+    </p>
+
+    <Button onClick={this.showModal} className="getStartedbtn" type="primary">Book an Appointment</Button>
+ 
+
+    </div>
 
   },
 
 
   {
 
-    view : <div className="pat_question_view">
-    <p id="bt4" className="pat_question">You got 2 weeks on Earth</p>
+    view : <div className="pat_question_view"> 
+    <br/>
+    <br/>
+    <br/>
+    <br/>  <br/>
+    <br/><br/>
+    <br/>
+    <h1 className="book_begin">
+      Assessment Complete
+    </h1>
 
-    <p>Be greatful for everything you ever had and die in peace</p>
-    
-    </div>,
+    <h2 className="acs_text">Based on your answers, you are in high risk category for <b>Skin Cancer</b></h2>
+
+    <p className="book_subtitle">
+       Book an appointment with the nearest doctor and get yourself checked.
+    </p>
+
+    <Button onClick={this.showModal} className="getStartedbtn" type="primary">Book an Appointment</Button>
+ 
+
+    </div>
 
   },
 
 
   {
 
-    view : <div className="pat_question_view">
-    <p id="bt4" className="pat_question">You got 2 weeks on Earth</p>
+    view : <div className="pat_question_view"> 
+    <br/>
+    <br/>
+    <br/>
+    <br/>  <br/>
+    <br/><br/>
+    <br/>
+    <h1 className="book_begin">
+      Assessment Complete
+    </h1>
 
-    <p>Be greatful for everything you ever had and die in peace</p>
-    
-    </div>,
+    <h2 className="acs_text">Based on your answers, you are in high risk category for <b>Breast Cancer</b></h2>
+
+    <p className="book_subtitle">
+       Book an appointment with the nearest doctor and get yourself checked.
+    </p>
+
+    <Button onClick={this.showModal} className="getStartedbtn" type="primary">Book an Appointment</Button>
+ 
+
+    </div>
   },
 
 ]
