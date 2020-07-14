@@ -9,13 +9,14 @@ import {createContainer} from 'meteor/react-meteor-data';
  
 import { PropagateLoader} from 'react-spinners';
 import { css } from 'react-emotion';
-import { Spin,Button,Modal,DatePicker,message} from 'antd';
+import { Spin,Button,Modal,DatePicker,message,Select} from 'antd';
 import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,CalendarOutlined } from '@ant-design/icons';
 import { patientDB } from '../../collections/patientDB';
 import { notifDB } from '../../collections/notifDB';
 import { regPatient } from '../../collections/regPatient';
 import { func } from 'prop-types';
-
+import { doctorDB } from '../../collections/doctorDB';
+const { Option } = Select;
 const override = css`
     display: block;
     border-color: red;s
@@ -45,7 +46,7 @@ var qBrain = null;
 var qSkin = null;
 var qInfo = null;
 
-
+var p_score = 0;
 var rQuestions = []
 var rAnswers = []
  
@@ -59,6 +60,7 @@ class PatBook extends Component {
       appointmentTime:null,
       appointmentTS:null,
       test:null,
+      hospital:null,
     };
 
     this.resp=this.resp.bind(this)
@@ -76,8 +78,66 @@ handleSubmit(e){
 } 
 
 
+
+
+onChange = (value)=> {
+  console.log(`selected ${value}`);
+
+  this.setState({
+    hospital : value,
+  })
+}
+
+onBlur = () => {
+  console.log('blur');
+}
+
+onFocus = () =>{
+  console.log('focus');
+}
+
+ onSearch = (val)=>{
+  console.log('search:', val);
+}
+
+
+
 // Test 
 showModal = () => {
+
+ 
+
+  var hosp = [];
+  for (var i in this.props.hosp){
+    hosp.push(<option value={this.props.hosp[i].hospital}>{this.props.hosp[i].hospital}</option>)
+  }
+ 
+
+      var h_final = <div> <Select
+      showSearch
+      placeholder="Choose a Hospital"
+      optionFilterProp="children"
+      onChange={this.onChange}
+      onFocus={this.onFocus}
+      onBlur={this.onBlur}
+      onSearch={this.onSearch}
+      filterOption={(input, option) =>
+        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      }
+          >
+    {hosp}
+    </Select>
+    </div>
+
+  
+
+  this.setState({
+      hosp:h_final,
+  })
+
+
+
+
   this.setState({
     visible: true,
   });
@@ -115,7 +175,9 @@ begin(){
     })
   }
 
-  
+  // this.setState({
+  //   view: results[3].view,
+  // })
 
 
 }
@@ -138,6 +200,7 @@ handleOk = e => {
 
   if(this.state.appointmentTime!=null){
 
+  var hospID = this.state.hospital;
   var appointmentID  = "";
   var possible = 
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -147,7 +210,7 @@ handleOk = e => {
    
   var appID = appointmentID+"_"+this.props.uid;
 
-  Meteor.call('newAppointment',appID,appointmentID,this.props.uid,this.props.patientInfo.name,this.props.patientInfo.age,this.props.patientInfo.gender,this.props.patientInfo.mobile,this.state.appointmentTime,this.state.appointmentTS,this.state.test,rQuestions,rAnswers,(err)=>{
+  Meteor.call('newAppointment',appID,appointmentID,this.props.uid,this.props.patientInfo.name,this.props.patientInfo.age,this.props.patientInfo.gender,this.props.patientInfo.mobile,this.state.appointmentTime,this.state.appointmentTS,this.state.test,rQuestions,rAnswers,hospID,(err)=>{
     if(!err){
       message.success("Appointment Booked")
     }
@@ -364,6 +427,7 @@ resp(type,next,inc,sid,qid,aid){
       </div>
     )
   }
+
 
 // 0 - General
 // 1 - Brain
@@ -1114,7 +1178,7 @@ if(this.state.view==null){
 
 
 
-        <Modal
+      <Modal
           title="Book an Appointment"
           visible={this.state.visible}
           onOk={this.handleOk}
@@ -1122,6 +1186,7 @@ if(this.state.view==null){
           onCancel={this.handleCancel}
         >
  
+       <div className="gh-book-app">
            <p><b>Test :</b> {this.state.test} </p>
 
 
@@ -1130,11 +1195,12 @@ if(this.state.view==null){
           <br />
           <br />
         
- 
-     
-        </Modal>
+          {this.state.hosp}
 
+         </div>
+      </Modal>
 
+    
 
      
       </div>
@@ -1155,10 +1221,12 @@ if(this.state.view==null){
     Meteor.subscribe('notif-user',q);
 
     Meteor.subscribe('patient-info',q);
+    Meteor.subscribe('doctor-all');
 
     return{
       patientInfo:regPatient.findOne({_id:q}),
       uid : q,
+      hosp:doctorDB.find({}).fetch(),
       notif:notifDB.find({userID:q},{sort:{timestamp:-1}}).fetch(),
     }
     

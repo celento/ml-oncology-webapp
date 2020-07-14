@@ -37,7 +37,7 @@ Meteor.startup(() => {
   });
 
   Meteor.publish('appointment', function(hid) {
-    return appointmentsDB.find({hospitalID:Number(hid)});
+    return appointmentsDB.find({hospitalID:Number(hid)},{sort:{TSappointment:-1}});
   });
  
   Meteor.publish('patients-list', function(hid) {
@@ -80,5 +80,14 @@ Meteor.startup(() => {
   Meteor.publish('access-user', function(uid) {
     return accessDB.find({userID:uid});
   });
+
+  Meteor.publish('doctor-all', function() {
+    return doctorDB.find({});
+  });
+
+  Meteor.publish('booking-pat', function(patID) {
+    return appointmentsDB.find({patID});
+  });
+
 
 });

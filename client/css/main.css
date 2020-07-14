@@ -4305,7 +4305,8 @@ html {
 .ant-menu-dark,
 .ant-menu-dark .ant-menu-sub {
   color: rgba(255, 255, 255, 0.65);
-  background: #1f1f1f;
+  background: #0f0e22;
+
 }
 .ant-menu-dark .ant-menu-submenu-title .ant-menu-submenu-arrow,
 .ant-menu-dark .ant-menu-sub .ant-menu-submenu-title .ant-menu-submenu-arrow {
@@ -4323,7 +4324,7 @@ html {
   background: transparent;
 }
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
-  background: #141414;
+  background: #0f0e22;
 }
 .ant-menu-dark.ant-menu-horizontal {
   border-bottom: 0;
@@ -4355,6 +4356,9 @@ html {
 .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
   left: 0;
   margin-left: 0;
+  margin: 14px;
+  font-size: 15px;
+  border-radius: 15px;
   border-right: 0;
 }
 .ant-menu-dark.ant-menu-inline .ant-menu-item::after,
@@ -9011,7 +9015,7 @@ textarea.ant-picker-input > input {
   -webkit-font-feature-settings: tnum;
           font-feature-settings: tnum;
   position: relative;
-  background: #141414;
+  background: #0d0e1f;
   border-radius: 2px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -9028,7 +9032,8 @@ textarea.ant-picker-input > input {
           box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.64), 0 3px 6px 0 rgba(0, 0, 0, 0.48), 0 5px 12px 4px rgba(0, 0, 0, 0.36);
 }
 .ant-card-bordered {
-  border: 1px solid #303030;
+  /* border: 1px solid #303030; */
+  border-radius: 15px;
 }
 .ant-card-head {
   min-height: 48px;
@@ -9038,7 +9043,7 @@ textarea.ant-picker-input > input {
   font-weight: 500;
   font-size: 16px;
   background: transparent;
-  border-bottom: 1px solid #303030;
+  /* border-bottom: 1px solid #303030; */
   border-radius: 2px 2px 0 0;
 }
 .ant-card-head::before {
@@ -9149,7 +9154,7 @@ textarea.ant-picker-input > input {
   padding: 0;
   list-style: none;
   background: rgba(255, 255, 255, 0.04);
-  border-top: 1px solid #303030;
+  /* border-top: 1px solid #303030; */
 }
 .ant-card-actions::before {
   display: table;
@@ -19597,7 +19602,7 @@ textarea.ant-input-number {
   position: relative;
   /* fix firefox can't set width smaller than content on flex item */
   min-width: 0;
-  background: #1f1f1f;
+  background: #0e0e21;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
@@ -19622,7 +19627,7 @@ textarea.ant-input-number {
   color: #fff;
   line-height: 48px;
   text-align: center;
-  background: #262626;
+  background: #171538;
   cursor: pointer;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;

@@ -10,7 +10,7 @@ import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import Rodal from 'rodal';
 import { Descriptions, Card, Avatar,Modal,message ,Input} from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined, FolderOpenOutlined } from '@ant-design/icons';
  
 const { Meta } = Card;
 
@@ -112,22 +112,24 @@ class AppointmentCard extends TrackerReact(React.Component){
 render(){  
   
 
+
+
   return(
     <div className="appoint-single-card">
     <Card
     style={{ width: 300 }}
    
     actions={[
-      <SettingOutlined onClick={this.navigate} key="setting" />,
-      <EllipsisOutlined key="ellipsis" />,
+      <FolderOpenOutlined onClick={this.navigate} key="setting" />,
+      // <EllipsisOutlined key="ellipsis" />,
     ]}
   >
     <Meta
-      avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+      avatar={<Avatar src={"/img/"+this.props.patient.gender+".png"} />}
       title={this.props.patient.name}
      
 
-      description={this.props.patient.appointmentTime}
+      description={(this.props.patient.appointmentTime).substring(0, this.props.patient.appointmentTime.length - 3)}
     />
   </Card>
  

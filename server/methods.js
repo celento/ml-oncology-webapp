@@ -174,7 +174,7 @@ Meteor.methods({
     },
 
 
-    newAppointment(appointmentID,aID,patientID,name,age,gender,mobile,appointmentTime,appointmentTS,test,questions,answers){
+    newAppointment(appointmentID,aID,patientID,name,age,gender,mobile,appointmentTime,appointmentTS,test,questions,answers,hID){
 
         appointmentsDB.insert({
             _id:appointmentID,
@@ -184,6 +184,8 @@ Meteor.methods({
             name,age,gender,phone:mobile,appointmentTime,
             TSappointment:appointmentTS,TScreation:Date.now(),test,hospitalID:1234,
             answers:answers,
+            hID:hID,
+            hospital:hID,
             questions:questions
         })
     }

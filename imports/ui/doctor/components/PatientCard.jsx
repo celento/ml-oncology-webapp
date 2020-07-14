@@ -10,7 +10,7 @@ import { css } from 'react-emotion';
 import { BarLoader } from 'react-spinners';
 import Rodal from 'rodal';
 import { Descriptions, Card, Avatar,Modal,message ,Input} from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined, FolderOpenOutlined } from '@ant-design/icons';
  
 const { Meta } = Card;
 
@@ -118,12 +118,12 @@ render(){
     style={{ width: 300 }}
    
     actions={[
-      <SettingOutlined onClick={this.navigate} key="setting" />,
+      <FolderOpenOutlined onClick={this.navigate} key="setting" />,
       <EllipsisOutlined key="ellipsis" />,
     ]}
   >
     <Meta
-      avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+      avatar={<Avatar src={"/img/"+this.props.patient.gender+".png"} />}
       title={this.props.patient.name}
      
 

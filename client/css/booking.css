@@ -30,15 +30,16 @@
 .acs_text{
   color: #ff7e75;
   line-height: 25px;
+
 }
 
 .resp_question{
-  font-weight: bold;
-  color: #82f9ad;
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 16px;
 }
 
 .resp_answer{
+  font-size: 16px;
   color: #ffa6a6;
 }
 
@@ -54,3 +55,10 @@
 /* .pat_button_resp:hover{
   background:#f44336;
 } */
+
+.gh-book-app .ant-picker{
+  width:100%;
+}
+.gh-book-app .ant-select{
+  width:100%;
+}

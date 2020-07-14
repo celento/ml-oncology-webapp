@@ -67,7 +67,13 @@ render(){
       <h1>Appointments</h1>
 
       <div className="appointments-holder">
+
+
       {this.props.appointments.map(patient=><AppointmentCard patient={patient} key={patient._id}/>)}
+
+
+
+      
       </div>
 
     </div>
@@ -80,7 +86,8 @@ export default createContainer((props)=>{
   Meteor.subscribe('appointment',Meteor.user().profile.hospitalID);
   
   console.log(appointmentsDB.find({}).fetch())
+
     return{ 
-      appointments:appointmentsDB.find({}).fetch(),
+      appointments:appointmentsDB.find({},{sort:{TSappointment:1}}).fetch(),
   };
 }, OfficialHome);  

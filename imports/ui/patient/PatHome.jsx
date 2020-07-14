@@ -10,10 +10,11 @@ import {createContainer} from 'meteor/react-meteor-data';
 import { PropagateLoader} from 'react-spinners';
 import { css } from 'react-emotion';
 import { Spin,Result,Card } from 'antd';
-import { UserOutlined, LockOutlined,BankOutlined,MobileOutlined,CalendarOutlined } from '@ant-design/icons';
+import { UserOutlined, CalendarOutlined,BankOutlined,MobileOutlined } from '@ant-design/icons';
 import { patientDB } from '../../collections/patientDB';
 import { notifDB } from '../../collections/notifDB';
 import { regPatient } from '../../collections/regPatient';
+import { appointmentsDB } from '../../collections/appointmentsDB';
 
 const override = css`
     display: block;
@@ -53,7 +54,7 @@ book(){
  
 
 
-  if(!this.props.patientInfo){
+  if(!this.props.patientInfo || !this.props.events){
     return(
       <div>
         <center>
@@ -65,6 +66,25 @@ book(){
         </center>
       </div>
     )
+  }
+
+
+  console.log(this.props.events)
+  var events = null;
+  if((this.props.events).length==0){
+      events =  <p className="ma_nothing">Nothing to Show</p>
+  }else{
+    events =  this.props.events.map(event=><div className="access_div_holder"><div key={event._id} className="access_div_left">
+        <CalendarOutlined className="access_big_lock"/>
+      </div>
+      <div className="access_div_right">
+          <p className="access_doctor_date">{event.appointmentTime.substring(0, event.appointmentTime.length - 3)}</p>
+          <p className="access_doctor_name">{event.hospital}</p>
+          <p className="access_doctor_hid">{event.test}</p>
+          {/* <p className="access_doctor _license">#{access.doctorInfo.license}</p> */}
+          {/* <p className="access_doctor_hid">Hospital ID : {access.doctorInfo.hospital}</p> */}
+      </div>
+      </div>)
   }
 
   // console.log(this.props.patientInfo)
@@ -124,7 +144,8 @@ if (dd < 10) {
 <br/>
 <br/>
       <p className="ma-sub-title">Upcoming Events</p>
-      <p className="ma_nothing">Nothing to Show</p>
+      {events}
+      {/* <p className="ma_nothing">Nothing to Show</p> */}
 
 <br/>
 <br/>
@@ -177,11 +198,14 @@ if (dd < 10) {
     Meteor.subscribe('notif-all');
 
     Meteor.subscribe('patient-info',q);
+    Meteor.subscribe('booking-pat',q);
 
     return{
       patientInfo:regPatient.findOne({_id:q}),
       uid : q,
       notif:notifDB.find({},{sort:{timestamp:-1}}).fetch(),
+      events:appointmentsDB.find({patID:q},{sort:{TSappointment:-1}}).fetch(),
+
     }
     
   }, withRouter(PatHome));
