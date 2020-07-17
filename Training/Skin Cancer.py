@@ -351,7 +351,7 @@ val_steps = np.ceil(num_val_samples / val_batch_size)
 
 datagen = ImageDataGenerator(
     preprocessing_function= \
-    tensorflow.keras.applications.mobilenet.preprocess_input)
+    tensorflow.keras.applications.resnet152.preprocess_input)
 
 train_batches = datagen.flow_from_directory(train_path,
                                             target_size=(image_size,image_size),
@@ -367,24 +367,24 @@ test_batches = datagen.flow_from_directory(valid_path,
                                             shuffle=False)
 
 
-mobile = tensorflow.keras.applications.mobilenet.MobileNet()
+resnet = tensorflow.keras.applications.resnet.ResNet152()
 
-mobile.summary()
+resnet.summary()
 
-type(mobile.layers)
-len(mobile.layers)
+type(resnet.layers)
+len(resnet.layers)
  
 predictions = Dense(7, activation='softmax')(x)
  
 
-model = Model(inputs=mobile.input, outputs=predictions)
+model = Model(inputs=resnet.input, outputs=predictions)
 
 
 model.summary()
 
  
 
-from tensorflow.keras.metrics import categorical_accuracy, top_k_categorical_accuracy
+from tensorflow.keras.metrics import categorical_accuracy
 
 def top_3_accuracy(y_true, y_pred):
     return top_k_categorical_accuracy(y_true, y_pred, k=3)
@@ -393,7 +393,7 @@ def top_2_accuracy(y_true, y_pred):
     return top_k_categorical_accuracy(y_true, y_pred, k=2)
 
 model.compile(Adam(lr=0.01), loss='categorical_crossentropy', 
-          metrics=[categorical_accuracy, top_2_accuracy, top_3_accuracy])
+          metrics=[categorical_accuracy, accuracy])
 
  
 print(valid_batches.class_indices)
